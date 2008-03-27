@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DataCatalogue>
+    <CatalogueProcess>
+        <SearchPath>../</SearchPath>
+        <LaunchPath>/Users/tyler/code/nme/cat</LaunchPath>
+        <UserHome>/Users/tyler</UserHome>
+        <IgnoredStrings>['.svn', '.shx', '.dbf']</IgnoredStrings>
+        <DirCount>44</DirCount>
+        <FileCount>119</FileCount>
+        <Timestamp>Tue Feb  5 20:52:34 2008</Timestamp>
+    </CatalogueProcess>
+    <VectorData>
+        <datasourceId>1</datasourceId>
+        <name>../data_example/shp</name>
+        <layercount>5</layercount>
+        <format>ESRI Shapefile</format>
+        <VectorLayer>
+            <featurecount>1</featurecount>
+            <name>buf_hull</name>
+            <extent>(-5.2264717603724069, 143.19359180565968, 42.418215273515429, 287.96378357150178)</extent>
+            <layerId>1</layerId>
+        </VectorLayer>
+        <VectorLayer>
+            <featurecount>1</featurecount>
+            <name>linebuf</name>
+            <extent>(-5.2264717603724069, 143.19359180565968, 42.418215273515429, 287.96378357150178)</extent>
+            <layerId>3</layerId>
+        </VectorLayer>
+        <VectorLayer>
+            <featurecount>8</featurecount>
+            <name>line</name>
+            <extent>(-3.924027383409785, 141.77937824328657, 43.417968752500002, 286.96378357150178)</extent>
+            <layerId>2</layerId>
+        </VectorLayer>
+        <VectorLayer>
+            <featurecount>1</featurecount>
+            <name>vanisland</name>
+            <extent>(-128.31944636678202, -123.44387543252594, 48.161439446366785, 50.973176470588243)</extent>
+            <layerId>5</layerId>
+        </VectorLayer>
+        <VectorLayer>
+            <featurecount>1</featurecount>
+            <name>vanisl_proj</name>
+            <extent>(-127.48989349743159, -127.48984981726348, 0.00043438545857253316, 0.00045974550950280422)</extent>
+            <layerId>4</layerId>
+        </VectorLayer>
+    </VectorData>
+    <RasterData>
+        <name>../data_example/img/bg.jpg</name>
+        <RasterBand>
+            <bandId>1</bandId>
+            <max>255.0</max>
+            <overviews>0</overviews>
+            <min>88.0</min>
+        </RasterBand>
+        <RasterBand>
+            <bandId>3</bandId>
+            <max>255.0</max>
+            <overviews>0</overviews>
+            <min>99.0</min>
+        </RasterBand>
+        <RasterBand>
+            <bandId>2</bandId>
+            <max>255.0</max>
+            <overviews>0</overviews>
+            <min>99.0</min>
+        </RasterBand>
+        <rasterX>1280</rasterX>
+        <rasterY>10</rasterY>
+        <driver>JPEG JFIF</driver>
+        <project></project>
+        <boundcount>3</boundcount>
+        <rasterId>1</rasterId>
+        <geotrans>(0.0, 1.0, 0.0, 0.0, 0.0, 1.0)</geotrans>
+    </RasterData>
+    <RasterData>
+        <name>../data_example/img/osgeo_swag.png</name>
+        <RasterBand>
+            <bandId>1</bandId>
+            <max>65535.0</max>
+            <overviews>0</overviews>
+            <min>2112.0</min>
+        </RasterBand>
+        <RasterBand>
+            <bandId>3</bandId>
+            <max>65535.0</max>
+            <overviews>0</overviews>
+            <min>4632.0</min>
+        </RasterBand>
+        <RasterBand>
+            <bandId>2</bandId>
+            <max>65535.0</max>
+            <overviews>0</overviews>
+            <min>2484.0</min>
+        </RasterBand>
+        <rasterX>120</rasterX>
+        <rasterY>180</rasterY>
+        <driver>Portable Network Graphics</driver>
+        <project></project>
+        <boundcount>3</boundcount>
+        <rasterId>2</rasterId>
+        <geotrans>(0.0, 1.0, 0.0, 0.0, 0.0, 1.0)</geotrans>
+    </RasterData>
+    <RasterData>
+        <name>../data_example/img/osgeo_swag.vrt</name>
+        <RasterBand>
+            <bandId>1</bandId>
+            <max>65535.0</max>
+            <overviews>0</overviews>
+            <min>2112.0</min>
+        </RasterBand>
+        <RasterBand>
+            <bandId>3</bandId>
+            <max>65535.0</max>
+            <overviews>0</overviews>
+            <min>4632.0</min>
+        </RasterBand>
+        <RasterBand>
+            <bandId>2</bandId>
+            <max>65535.0</max>
+            <overviews>0</overviews>
+            <min>2484.0</min>
+        </RasterBand>
+        <rasterX>120</rasterX>
+        <rasterY>180</rasterY>
+        <driver>Virtual Raster</driver>
+        <project></project>
+        <boundcount>3</boundcount>
+        <rasterId>3</rasterId>
+        <geotrans>(0.0, 1.0, 0.0, 0.0, 0.0, 1.0)</geotrans>
+    </RasterData>
+    <VectorData>
+        <datasourceId>2</datasourceId>
+        <name>../data_example/shp/buf_hull.shp</name>
+        <layercount>1</layercount>
+        <format>ESRI Shapefile</format>
+        <VectorLayer>
+            <featurecount>1</featurecount>
+            <name>buf_hull</name>
+            <extent>(-5.2264717603724069, 143.19359180565968, 42.418215273515429, 287.96378357150178)</extent>
+            <layerId>1</layerId>
+        </VectorLayer>
+    </VectorData>
+    <VectorData>
+        <datasourceId>3</datasourceId>
+        <name>../data_example/shp/buf_hull.shp</name>
+        <layercount>1</layercount>
+        <format>ESRI Shapefile</format>
+        <VectorLayer>
+            <featurecount>1</featurecount>
+            <name>buf_hull</name>
+            <extent>(-5.2264717603724069, 143.19359180565968, 42.418215273515429, 287.96378357150178)</extent>
+            <layerId>1</layerId>
+        </VectorLayer>
+    </VectorData>
+    <VectorData>
+        <datasourceId>4</datasourceId>
+        <name>../data_example/shp/buf_hull.shp</name>
+        <layercount>1</layercount>
+        <format>ESRI Shapefile</format>
+        <VectorLayer>
+            <featurecount>1</featurecount>
+            <name>buf_hull</name>
+            <extent>(-5.2264717603724069, 143.19359180565968, 42.418215273515429, 287.96378357150178)</extent>
+            <layerId>1</layerId>
+        </VectorLayer>
+    </VectorData>
+    <VectorData>
+        <datasourceId>5</datasourceId>
+        <name>../data_example/shp/line.shp</name>
+        <layercount>1</layercount>
+        <format>ESRI Shapefile</format>
+        <VectorLayer>
+            <featurecount>8</featurecount>
+            <name>line</name>
+            <extent>(-3.924027383409785, 141.77937824328657, 43.417968752500002, 286.96378357150178)</extent>
+            <layerId>1</layerId>
+        </VectorLayer>
+    </VectorData>
+    <VectorData>
+        <datasourceId>6</datasourceId>
+        <name>../data_example/shp/line.shp</name>
+        <layercount>1</layercount>
+        <format>ESRI Shapefile</format>
+        <VectorLayer>
+            <featurecount>8</featurecount>
+            <name>line</name>
+            <extent>(-3.924027383409785, 141.77937824328657, 43.417968752500002, 286.96378357150178)</extent>
+            <layerId>1</layerId>
+        </VectorLayer>
+    </VectorData>
+    <VectorData>
+        <datasourceId>7</datasourceId>
+        <name>../data_example/shp/line.xml</name>
+        <layercount>1</layercount>
+        <format>GML</format>
+        <VectorLayer>
+            <featurecount>2</featurecount>
+            <name>line</name>
+            <extent>(-3.9240300000000001, 2.19319, 46.037889999999997, 47.897179999999999)</extent>
+            <layerId>1</layerId>
+        </VectorLayer>
+    </VectorData>
+    <VectorData>
+        <datasourceId>8</datasourceId>
+        <name>../data_example/shp/line.xml</name>
+        <layercount>1</layercount>
+        <format>GML</format>
+        <VectorLayer>
+            <featurecount>2</featurecount>
+            <name>line</name>
+            <extent>(-3.9240300000000001, 2.19319, 46.037889999999997, 47.897179999999999)</extent>
+            <layerId>1</layerId>
+        </VectorLayer>
+    </VectorData>
+    <VectorData>
+        <datasourceId>9</datasourceId>
+        <name>../data_example/shp/linebuf.shp</name>
+        <layercount>1</layercount>
+        <format>ESRI Shapefile</format>
+        <VectorLayer>
+            <featurecount>1</featurecount>
+            <name>linebuf</name>
+            <extent>(-5.2264717603724069, 143.19359180565968, 42.418215273515429, 287.96378357150178)</extent>
+            <layerId>1</layerId>
+        </VectorLayer>
+    </VectorData>
+    <VectorData>
+        <datasourceId>10</datasourceId>
+        <name>../data_example/shp/linebuf.shp</name>
+        <layercount>1</layercount>
+        <format>ESRI Shapefile</format>
+        <VectorLayer>
+            <featurecount>1</featurecount>
+            <name>linebuf</name>
+            <extent>(-5.2264717603724069, 143.19359180565968, 42.418215273515429, 287.96378357150178)</extent>
+            <layerId>1</layerId>
+        </VectorLayer>
+    </VectorData>
+    <VectorData>
+        <datasourceId>11</datasourceId>
+        <name>../data_example/shp/vanisl_proj.shp</name>
+        <layercount>1</layercount>
+        <format>ESRI Shapefile</format>
+        <VectorLayer>
+            <featurecount>1</featurecount>
+            <name>vanisl_proj</name>
+            <extent>(-127.48989349743159, -127.48984981726348, 0.00043438545857253316, 0.00045974550950280422)</extent>
+            <layerId>1</layerId>
+        </VectorLayer>
+    </VectorData>
+    <VectorData>
+        <datasourceId>12</datasourceId>
+        <name>../data_example/shp/vanisl_proj.shp</name>
+        <layercount>1</layercount>
+        <format>ESRI Shapefile</format>
+        <VectorLayer>
+            <featurecount>1</featurecount>
+            <name>vanisl_proj</name>
+            <extent>(-127.48989349743159, -127.48984981726348, 0.00043438545857253316, 0.00045974550950280422)</extent>
+            <layerId>1</layerId>
+        </VectorLayer>
+    </VectorData>
+    <VectorData>
+        <datasourceId>13</datasourceId>
+        <name>../data_example/shp/vanisl_proj.shp</name>
+        <layercount>1</layercount>
+        <format>ESRI Shapefile</format>
+        <VectorLayer>
+            <featurecount>1</featurecount>
+            <name>vanisl_proj</name>
+            <extent>(-127.48989349743159, -127.48984981726348, 0.00043438545857253316, 0.00045974550950280422)</extent>
+            <layerId>1</layerId>
+        </VectorLayer>
+    </VectorData>
+    <VectorData>
+        <datasourceId>14</datasourceId>
+        <name>../data_example/shp/vanisland.shp</name>
+        <layercount>1</layercount>
+        <format>ESRI Shapefile</format>
+        <VectorLayer>
+            <featurecount>1</featurecount>
+            <name>vanisland</name>
+            <extent>(-128.31944636678202, -123.44387543252594, 48.161439446366785, 50.973176470588243)</extent>
+            <layerId>1</layerId>
+        </VectorLayer>
+    </VectorData>
+    <VectorData>
+        <datasourceId>15</datasourceId>
+        <name>../data_example/shp/vanisland.shp</name>
+        <layercount>1</layercount>
+        <format>ESRI Shapefile</format>
+        <VectorLayer>
+            <featurecount>1</featurecount>
+            <name>vanisland</name>
+            <extent>(-128.31944636678202, -123.44387543252594, 48.161439446366785, 50.973176470588243)</extent>
+            <layerId>1</layerId>
+        </VectorLayer>
+    </VectorData>
+</DataCatalogue>
