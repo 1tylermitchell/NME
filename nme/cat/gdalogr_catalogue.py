@@ -83,13 +83,15 @@ def startup():
         raster,vector = tryopends(currentdir)
         if raster:
           counterraster += 1
-         # print counterraster
-          resultsraster = processraster(raster,counterraster)
-          xmlraster = outputraster(writer, resultsraster, counterraster, countervds)
+          print counterraster
+          resultsraster,resultsFileStats = processraster(raster,counterraster,currentdir)
+          xmlraster = outputraster(writer, resultsraster, counterraster, countervds, resultsFileStats)
         if vector:
+ #         resultsFileStats = fileStats(currentdir)
+ #         statfileStats = outputFileStats(writer, resultsFileStats)
           countervds += 1
-          resultsvds = processvds(vector,countervds)
-          xmlvector = outputvector(writer, resultsvds,counterraster,countervds)
+          resultsvds,resultsFileStats = processvds(vector,countervds,currentdir)
+          xmlvector = outputvector(writer, resultsvds,counterraster,countervds,resultsFileStats)
     for eachfile in allfiles:
       currentfile = "/".join([startdir, eachfile])
       #print "Current file" + currentfile
@@ -97,13 +99,15 @@ def startup():
         raster, vector = tryopends(currentfile)
       if raster:
         counterraster += 1
-        resultsraster = processraster(raster, counterraster)
-        xmlraster = outputraster(writer, resultsraster, counterraster, countervds)
+        resultsraster,resultsFileStats = processraster(raster, counterraster, currentfile)
+        xmlraster = outputraster(writer, resultsraster, counterraster, countervds, resultsFileStats)
       if vector:
         if (not skipfile(vector.GetName(),skiplist)):
+ #         resultsFileStats = fileStats(currentfile)
+ #         statfileStats = outputFileStats(writer, resultsFileStats)
           countervds += 1
-          resultsvds = processvds(vector,countervds)
-          xmlvector = outputvector(writer, resultsvds,counterraster,countervds)
+          resultsvds,resultsFileStats = processvds(vector, countervds, currentfile)
+          xmlvector = outputvector(writer, resultsvds,counterraster,countervds,resultsFileStats)
   writer.pop()
 
 def processStats(writer, walkerlist, skiplist, startpath):
@@ -148,7 +152,7 @@ def tryopends(filepath):
     return False
   return dsgdal, dsogr
 
-def processraster(raster, counterraster):
+def processraster(raster, counterraster, currentpath):
   rastername = raster.GetDescription()
   bandcount = raster.RasterCount
   geotrans = raster.GetGeoTransform()
@@ -157,6 +161,7 @@ def processraster(raster, counterraster):
   rastery = raster.RasterYSize
   wkt = raster.GetProjection()
   resultsbands = {}
+  resultsFileStats = fileStats(currentpath)
   for bandnum in range(bandcount):
     band = raster.GetRasterBand(bandnum+1)
     min, max = band.ComputeRasterMinMax()
@@ -168,10 +173,11 @@ def processraster(raster, counterraster):
   resultsraster = { 'bands': resultsbands, 'rasterId': str(counterraster), 'name': rastername, 'bandcount': str(bandcount), 'geotrans': str(geotrans), 'driver': str(driver), 'rasterX': str(rasterx), 'rasterY': str(rastery), 'project': wkt}
   sqlstringraster = "INSERT INTO raster %s VALUES %s;" % (('rasterId','name','bandcount','geotrans','driver','rasterX','rasterY','project'), (int(counterraster), rastername, int(bandcount), str(geotrans), str(driver),int(rasterx), int(rastery),str(wkt)))
   if printSql: print sqlstringraster
-  return resultsraster
+  return resultsraster, resultsFileStats
   
-def outputraster(writer, resultsraster, counterraster, countervds):
+def outputraster(writer, resultsraster, counterraster, countervds, resultsFileStats):
   writer.push(u"RasterData")
+  statfileStats = outputFileStats(writer, resultsFileStats)
   for rasteritem, rastervalue in resultsraster.iteritems(): # for each raster attribute
     if rasteritem <> 'bands':
       writer.elem(unicode(rasteritem), unicode(rastervalue))
@@ -184,11 +190,12 @@ def outputraster(writer, resultsraster, counterraster, countervds):
   writer.pop()
   return True
 
-def processvds(vector, countervds):
+def processvds(vector, countervds,currentpath):
   vdsname = vector.GetName()
   vdsformat = vector.GetDriver().GetName()
   vdslayercount = vector.GetLayerCount()
   resultslayers = {}
+  resultsFileStats = fileStats(currentpath)
   for layernum in range(vdslayercount): #process all layers
     layer = vector.GetLayer(layernum)
     layername = layer.GetName()
@@ -210,10 +217,11 @@ def processvds(vector, countervds):
   sqlstringvds = "INSERT INTO datasource %s VALUES %s;" % (('datasourceId','name','format','layercount'), (countervds, vdsname, vdsformat, int(vdslayercount)))
   resultsvector = { 'resultsvds': resultsvds, 'resultslayers': resultslayers } 
   if printSql: print sqlstringvds
-  return resultsvector
+  return resultsvector,resultsFileStats
 
-def outputvector(writer, resultsvector, counterraster, countervds):
+def outputvector(writer, resultsvector, counterraster, countervds, resultsFileStats):
   writer.push(u"VectorData")
+  statfileStats = outputFileStats(writer, resultsFileStats)
   for vectoritem, vectorvalue in resultsvector.iteritems(): # resultsvector includes two dictionaries
     if vectoritem <> 'resultslayers':
       for vectordsitem, vectordsvalue in vectorvalue.iteritems(): # vectorvalue contains datasource attributes
@@ -251,6 +259,9 @@ def sqlOutputVector(writer, resultsvector, counterraster, countervds):
   #writer.pop()
   return True
 
+
+### TODO functions below...
+
 def xmlDtdOutput():
   import zipfiles
   # output dtd that corresponds to the xml, or is it schema?
@@ -263,6 +274,39 @@ def openZip(currentfile):
   import zipfiles
   # extract files and catalogue them
 
+def fileStats(filepath):
+  mode, ino, dev, nlink, user_id, group_id, file_size, time_accessed, time_modified, time_created = os.stat(filepath)
+  if os.path.isfile(filepath):
+    file_type = "File"
+  else: 
+    file_type = "Directory"
+  try:
+    import pwd # not available on all platforms
+    userinfo = pwd.getpwuid(user_id)
+  except (ImportError, KeyError):
+    user_name = "N/A"
+    user_full_name = "N/A"
+  else:
+    user_name = userinfo[0]
+    user_full_name = userinfo[4]
+  md5_digest = getMd5HexDigest(os.stat(filepath))
+  resultsFileStats = {'userId': str(user_id), 'groupId': str(group_id), 'fileSize': str(file_size), 'timeAccessed': str(time_accessed), 'timeModified': str(time_modified), 'timeCreated': str(time_created), 'fileType': file_type, 'userName': user_name, 'userFullName': user_full_name, 'uniqueDigest': md5_digest}
+  return resultsFileStats
+
+def outputFileStats(writer, resultsFileStats):
+  writer.push(u"FileStats")
+  for statitem, statvalue in resultsFileStats.iteritems():
+    writer.elem(unicode(statitem), unicode(statvalue))
+  writer.pop()
+  return True
+
+def getMd5HexDigest(encodeString):
+  import md5
+  m = md5.new()
+  m.update(str(encodeString))
+  return m.hexdigest()
+
 if __name__ == '__main__':
   startup()
+  print "</xml>"
 
