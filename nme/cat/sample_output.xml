@@ -1,52 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <DataCatalogue>
     <CatalogueProcess>
-        <SearchPath>../</SearchPath>
-        <LaunchPath>/Users/tyler/code/nme/cat</LaunchPath>
+        <SearchPath>/Users/tyler/code/nme/data_example</SearchPath>
+        <LaunchPath>/Users/tyler/src/google/spatialguru/nme/cat</LaunchPath>
         <UserHome>/Users/tyler</UserHome>
         <IgnoredStrings>['.svn', '.shx', '.dbf']</IgnoredStrings>
-        <DirCount>44</DirCount>
-        <FileCount>119</FileCount>
-        <Timestamp>Tue Feb  5 20:52:34 2008</Timestamp>
+        <DirCount>26</DirCount>
+        <FileCount>44</FileCount>
+        <Timestamp>Thu Mar 27 23:46:36 2008</Timestamp>
     </CatalogueProcess>
     <VectorData>
+        <FileStats>
+            <userName>tyler</userName>
+            <uniqueDigest>53070a9966101e8fd2a43fc035f6c849</uniqueDigest>
+            <userFullName>Tyler Mitchell</userFullName>
+            <timeCreated>1204102125</timeCreated>
+            <fileType>Directory</fileType>
+            <userId>501</userId>
+            <timeAccessed>1206686796</timeAccessed>
+            <groupId>501</groupId>
+            <timeModified>1204102125</timeModified>
+            <fileSize>748</fileSize>
+        </FileStats>
         <datasourceId>1</datasourceId>
-        <name>../data_example/shp</name>
-        <layercount>5</layercount>
+        <name>/Users/tyler/code/nme/data_example/shp</name>
+        <layercount>3</layercount>
         <format>ESRI Shapefile</format>
-        <VectorLayer>
-            <featurecount>1</featurecount>
-            <name>buf_hull</name>
-            <extent>(-5.2264717603724069, 143.19359180565968, 42.418215273515429, 287.96378357150178)</extent>
-            <layerId>1</layerId>
-        </VectorLayer>
-        <VectorLayer>
-            <featurecount>1</featurecount>
-            <name>linebuf</name>
-            <extent>(-5.2264717603724069, 143.19359180565968, 42.418215273515429, 287.96378357150178)</extent>
-            <layerId>3</layerId>
-        </VectorLayer>
         <VectorLayer>
             <featurecount>8</featurecount>
             <name>line</name>
             <extent>(-3.924027383409785, 141.77937824328657, 43.417968752500002, 286.96378357150178)</extent>
+            <layerId>1</layerId>
+        </VectorLayer>
+        <VectorLayer>
+            <featurecount>2</featurecount>
+            <name>points2</name>
+            <extent>(-123.1866464339909, 0.27314112291350057, 39.31411229135054, 50.786039453717763)</extent>
+            <layerId>3</layerId>
+        </VectorLayer>
+        <VectorLayer>
+            <featurecount>8</featurecount>
+            <name>linecopy</name>
+            <extent>(-3.924027383409785, 141.77937824328657, 43.417968752500002, 286.96378357150178)</extent>
             <layerId>2</layerId>
-        </VectorLayer>
-        <VectorLayer>
-            <featurecount>1</featurecount>
-            <name>vanisland</name>
-            <extent>(-128.31944636678202, -123.44387543252594, 48.161439446366785, 50.973176470588243)</extent>
-            <layerId>5</layerId>
-        </VectorLayer>
-        <VectorLayer>
-            <featurecount>1</featurecount>
-            <name>vanisl_proj</name>
-            <extent>(-127.48989349743159, -127.48984981726348, 0.00043438545857253316, 0.00045974550950280422)</extent>
-            <layerId>4</layerId>
         </VectorLayer>
     </VectorData>
     <RasterData>
-        <name>../data_example/img/bg.jpg</name>
+        <FileStats>
+            <userName>tyler</userName>
+            <uniqueDigest>80e719ab8c519b4a17eb0304e8a02408</uniqueDigest>
+            <userFullName>Tyler Mitchell</userFullName>
+            <timeCreated>1203797511</timeCreated>
+            <fileType>File</fileType>
+            <userId>501</userId>
+            <timeAccessed>1206686796</timeAccessed>
+            <groupId>501</groupId>
+            <timeModified>1202359805</timeModified>
+            <fileSize>2572</fileSize>
+        </FileStats>
+        <geotrans>(0.0, 1.0, 0.0, 0.0, 0.0, 1.0)</geotrans>
+        <name>/Users/tyler/code/nme/data_example/img/bg.jpg</name>
         <RasterBand>
             <bandId>1</bandId>
             <max>255.0</max>
@@ -69,12 +82,24 @@
         <rasterY>10</rasterY>
         <driver>JPEG JFIF</driver>
         <project></project>
-        <boundcount>3</boundcount>
         <rasterId>1</rasterId>
-        <geotrans>(0.0, 1.0, 0.0, 0.0, 0.0, 1.0)</geotrans>
+        <bandcount>3</bandcount>
     </RasterData>
     <RasterData>
-        <name>../data_example/img/osgeo_swag.png</name>
+        <FileStats>
+            <userName>tyler</userName>
+            <uniqueDigest>8681e710c39b467f0673a4557347b492</uniqueDigest>
+            <userFullName>Tyler Mitchell</userFullName>
+            <timeCreated>1202359805</timeCreated>
+            <fileType>File</fileType>
+            <userId>501</userId>
+            <timeAccessed>1206686796</timeAccessed>
+            <groupId>501</groupId>
+            <timeModified>1202359805</timeModified>
+            <fileSize>118829</fileSize>
+        </FileStats>
+        <geotrans>(0.0, 1.0, 0.0, 0.0, 0.0, 1.0)</geotrans>
+        <name>/Users/tyler/code/nme/data_example/img/osgeo_swag.png</name>
         <RasterBand>
             <bandId>1</bandId>
             <max>65535.0</max>
@@ -97,12 +122,24 @@
         <rasterY>180</rasterY>
         <driver>Portable Network Graphics</driver>
         <project></project>
-        <boundcount>3</boundcount>
         <rasterId>2</rasterId>
-        <geotrans>(0.0, 1.0, 0.0, 0.0, 0.0, 1.0)</geotrans>
+        <bandcount>3</bandcount>
     </RasterData>
     <RasterData>
-        <name>../data_example/img/osgeo_swag.vrt</name>
+        <FileStats>
+            <userName>tyler</userName>
+            <uniqueDigest>e6c90ae2491eaeb1c322896d69c27016</uniqueDigest>
+            <userFullName>Tyler Mitchell</userFullName>
+            <timeCreated>1202359805</timeCreated>
+            <fileType>File</fileType>
+            <userId>501</userId>
+            <timeAccessed>1206686796</timeAccessed>
+            <groupId>501</groupId>
+            <timeModified>1202359805</timeModified>
+            <fileSize>1211</fileSize>
+        </FileStats>
+        <geotrans>(0.0, 1.0, 0.0, 0.0, 0.0, 1.0)</geotrans>
+        <name>/Users/tyler/code/nme/data_example/img/osgeo_swag.vrt</name>
         <RasterBand>
             <bandId>1</bandId>
             <max>65535.0</max>
@@ -125,85 +162,168 @@
         <rasterY>180</rasterY>
         <driver>Virtual Raster</driver>
         <project></project>
-        <boundcount>3</boundcount>
         <rasterId>3</rasterId>
-        <geotrans>(0.0, 1.0, 0.0, 0.0, 0.0, 1.0)</geotrans>
+        <bandcount>3</bandcount>
     </RasterData>
     <VectorData>
+        <FileStats>
+            <userName>tyler</userName>
+            <uniqueDigest>3b32d94b1e2d273306c51638df4d4cdf</uniqueDigest>
+            <userFullName>Tyler Mitchell</userFullName>
+            <timeCreated>1202359805</timeCreated>
+            <fileType>File</fileType>
+            <userId>501</userId>
+            <timeAccessed>1206686796</timeAccessed>
+            <groupId>501</groupId>
+            <timeModified>1202359805</timeModified>
+            <fileSize>2644</fileSize>
+        </FileStats>
         <datasourceId>2</datasourceId>
-        <name>../data_example/shp/buf_hull.shp</name>
+        <name>/Users/tyler/code/nme/data_example/shp/line.shp</name>
         <layercount>1</layercount>
         <format>ESRI Shapefile</format>
         <VectorLayer>
-            <featurecount>1</featurecount>
-            <name>buf_hull</name>
-            <extent>(-5.2264717603724069, 143.19359180565968, 42.418215273515429, 287.96378357150178)</extent>
+            <featurecount>8</featurecount>
+            <name>line</name>
+            <extent>(-3.924027383409785, 141.77937824328657, 43.417968752500002, 286.96378357150178)</extent>
             <layerId>1</layerId>
         </VectorLayer>
     </VectorData>
     <VectorData>
+        <FileStats>
+            <userName>tyler</userName>
+            <uniqueDigest>9af16fec8faa06d0e24d14d38fd02948</uniqueDigest>
+            <userFullName>Tyler Mitchell</userFullName>
+            <timeCreated>1202359805</timeCreated>
+            <fileType>File</fileType>
+            <userId>501</userId>
+            <timeAccessed>1206686796</timeAccessed>
+            <groupId>501</groupId>
+            <timeModified>1202359805</timeModified>
+            <fileSize>164</fileSize>
+        </FileStats>
         <datasourceId>3</datasourceId>
-        <name>../data_example/shp/buf_hull.shp</name>
+        <name>/Users/tyler/code/nme/data_example/shp/line.shp</name>
         <layercount>1</layercount>
         <format>ESRI Shapefile</format>
         <VectorLayer>
-            <featurecount>1</featurecount>
-            <name>buf_hull</name>
-            <extent>(-5.2264717603724069, 143.19359180565968, 42.418215273515429, 287.96378357150178)</extent>
+            <featurecount>8</featurecount>
+            <name>line</name>
+            <extent>(-3.924027383409785, 141.77937824328657, 43.417968752500002, 286.96378357150178)</extent>
             <layerId>1</layerId>
         </VectorLayer>
     </VectorData>
     <VectorData>
+        <FileStats>
+            <userName>tyler</userName>
+            <uniqueDigest>6a767c90196daa02018ab233f702311b</uniqueDigest>
+            <userFullName>Tyler Mitchell</userFullName>
+            <timeCreated>1202359805</timeCreated>
+            <fileType>File</fileType>
+            <userId>501</userId>
+            <timeAccessed>1206686796</timeAccessed>
+            <groupId>501</groupId>
+            <timeModified>1202359805</timeModified>
+            <fileSize>2579</fileSize>
+        </FileStats>
         <datasourceId>4</datasourceId>
-        <name>../data_example/shp/buf_hull.shp</name>
+        <name>/Users/tyler/code/nme/data_example/shp/line.xml</name>
         <layercount>1</layercount>
-        <format>ESRI Shapefile</format>
+        <format>GML</format>
         <VectorLayer>
-            <featurecount>1</featurecount>
-            <name>buf_hull</name>
-            <extent>(-5.2264717603724069, 143.19359180565968, 42.418215273515429, 287.96378357150178)</extent>
+            <featurecount>2</featurecount>
+            <name>line</name>
+            <extent>(-3.9240300000000001, 2.19319, 46.037889999999997, 47.897179999999999)</extent>
             <layerId>1</layerId>
         </VectorLayer>
     </VectorData>
     <VectorData>
+        <FileStats>
+            <userName>tyler</userName>
+            <uniqueDigest>1fc4f07e95566b44d09e25e2a18904fa</uniqueDigest>
+            <userFullName>Tyler Mitchell</userFullName>
+            <timeCreated>1202767227</timeCreated>
+            <fileType>File</fileType>
+            <userId>501</userId>
+            <timeAccessed>1206686796</timeAccessed>
+            <groupId>501</groupId>
+            <timeModified>1202767227</timeModified>
+            <fileSize>409</fileSize>
+        </FileStats>
         <datasourceId>5</datasourceId>
-        <name>../data_example/shp/line.shp</name>
+        <name>/Users/tyler/code/nme/data_example/shp/line.xml</name>
         <layercount>1</layercount>
-        <format>ESRI Shapefile</format>
+        <format>GML</format>
         <VectorLayer>
-            <featurecount>8</featurecount>
+            <featurecount>2</featurecount>
             <name>line</name>
-            <extent>(-3.924027383409785, 141.77937824328657, 43.417968752500002, 286.96378357150178)</extent>
+            <extent>(-3.9240300000000001, 2.19319, 46.037889999999997, 47.897179999999999)</extent>
             <layerId>1</layerId>
         </VectorLayer>
     </VectorData>
     <VectorData>
+        <FileStats>
+            <userName>tyler</userName>
+            <uniqueDigest>5bf1d7796b89e6bfa70960ab2ef5691b</uniqueDigest>
+            <userFullName>Tyler Mitchell</userFullName>
+            <timeCreated>1202767223</timeCreated>
+            <fileType>File</fileType>
+            <userId>501</userId>
+            <timeAccessed>1206686796</timeAccessed>
+            <groupId>501</groupId>
+            <timeModified>1202767223</timeModified>
+            <fileSize>2644</fileSize>
+        </FileStats>
         <datasourceId>6</datasourceId>
-        <name>../data_example/shp/line.shp</name>
+        <name>/Users/tyler/code/nme/data_example/shp/linecopy.shp</name>
         <layercount>1</layercount>
         <format>ESRI Shapefile</format>
         <VectorLayer>
             <featurecount>8</featurecount>
-            <name>line</name>
+            <name>linecopy</name>
             <extent>(-3.924027383409785, 141.77937824328657, 43.417968752500002, 286.96378357150178)</extent>
             <layerId>1</layerId>
         </VectorLayer>
     </VectorData>
     <VectorData>
+        <FileStats>
+            <userName>tyler</userName>
+            <uniqueDigest>278a94e0b3953dfcaee1b526b071266a</uniqueDigest>
+            <userFullName>Tyler Mitchell</userFullName>
+            <timeCreated>1202767232</timeCreated>
+            <fileType>File</fileType>
+            <userId>501</userId>
+            <timeAccessed>1206686796</timeAccessed>
+            <groupId>501</groupId>
+            <timeModified>1202767232</timeModified>
+            <fileSize>164</fileSize>
+        </FileStats>
         <datasourceId>7</datasourceId>
-        <name>../data_example/shp/line.xml</name>
+        <name>/Users/tyler/code/nme/data_example/shp/linecopy.shp</name>
         <layercount>1</layercount>
-        <format>GML</format>
+        <format>ESRI Shapefile</format>
         <VectorLayer>
-            <featurecount>2</featurecount>
-            <name>line</name>
-            <extent>(-3.9240300000000001, 2.19319, 46.037889999999997, 47.897179999999999)</extent>
+            <featurecount>8</featurecount>
+            <name>linecopy</name>
+            <extent>(-3.924027383409785, 141.77937824328657, 43.417968752500002, 286.96378357150178)</extent>
             <layerId>1</layerId>
         </VectorLayer>
     </VectorData>
     <VectorData>
+        <FileStats>
+            <userName>tyler</userName>
+            <uniqueDigest>45757d525a9b951d6d6bda7b2367d934</uniqueDigest>
+            <userFullName>Tyler Mitchell</userFullName>
+            <timeCreated>1202767246</timeCreated>
+            <fileType>File</fileType>
+            <userId>501</userId>
+            <timeAccessed>1206686796</timeAccessed>
+            <groupId>501</groupId>
+            <timeModified>1202767246</timeModified>
+            <fileSize>2579</fileSize>
+        </FileStats>
         <datasourceId>8</datasourceId>
-        <name>../data_example/shp/line.xml</name>
+        <name>/Users/tyler/code/nme/data_example/shp/linecopy.xml</name>
         <layercount>1</layercount>
         <format>GML</format>
         <VectorLayer>
@@ -214,87 +334,52 @@
         </VectorLayer>
     </VectorData>
     <VectorData>
+        <FileStats>
+            <userName>tyler</userName>
+            <uniqueDigest>7a3a40e992a7e334662571da24c79e46</uniqueDigest>
+            <userFullName>Tyler Mitchell</userFullName>
+            <timeCreated>1204102376</timeCreated>
+            <fileType>File</fileType>
+            <userId>501</userId>
+            <timeAccessed>1206686796</timeAccessed>
+            <groupId>501</groupId>
+            <timeModified>1204102376</timeModified>
+            <fileSize>156</fileSize>
+        </FileStats>
         <datasourceId>9</datasourceId>
-        <name>../data_example/shp/linebuf.shp</name>
+        <name>/Users/tyler/code/nme/data_example/shp/points2.shp</name>
         <layercount>1</layercount>
         <format>ESRI Shapefile</format>
         <VectorLayer>
-            <featurecount>1</featurecount>
-            <name>linebuf</name>
-            <extent>(-5.2264717603724069, 143.19359180565968, 42.418215273515429, 287.96378357150178)</extent>
+            <featurecount>2</featurecount>
+            <name>points2</name>
+            <extent>(-123.1866464339909, 0.27314112291350057, 39.31411229135054, 50.786039453717763)</extent>
             <layerId>1</layerId>
         </VectorLayer>
     </VectorData>
     <VectorData>
+        <FileStats>
+            <userName>tyler</userName>
+            <uniqueDigest>f2f356dea0e5375fc1b493cc3ad74916</uniqueDigest>
+            <userFullName>Tyler Mitchell</userFullName>
+            <timeCreated>1204102376</timeCreated>
+            <fileType>File</fileType>
+            <userId>501</userId>
+            <timeAccessed>1206686796</timeAccessed>
+            <groupId>501</groupId>
+            <timeModified>1204102376</timeModified>
+            <fileSize>116</fileSize>
+        </FileStats>
         <datasourceId>10</datasourceId>
-        <name>../data_example/shp/linebuf.shp</name>
+        <name>/Users/tyler/code/nme/data_example/shp/points2.shp</name>
         <layercount>1</layercount>
         <format>ESRI Shapefile</format>
         <VectorLayer>
-            <featurecount>1</featurecount>
-            <name>linebuf</name>
-            <extent>(-5.2264717603724069, 143.19359180565968, 42.418215273515429, 287.96378357150178)</extent>
-            <layerId>1</layerId>
-        </VectorLayer>
-    </VectorData>
-    <VectorData>
-        <datasourceId>11</datasourceId>
-        <name>../data_example/shp/vanisl_proj.shp</name>
-        <layercount>1</layercount>
-        <format>ESRI Shapefile</format>
-        <VectorLayer>
-            <featurecount>1</featurecount>
-            <name>vanisl_proj</name>
-            <extent>(-127.48989349743159, -127.48984981726348, 0.00043438545857253316, 0.00045974550950280422)</extent>
-            <layerId>1</layerId>
-        </VectorLayer>
-    </VectorData>
-    <VectorData>
-        <datasourceId>12</datasourceId>
-        <name>../data_example/shp/vanisl_proj.shp</name>
-        <layercount>1</layercount>
-        <format>ESRI Shapefile</format>
-        <VectorLayer>
-            <featurecount>1</featurecount>
-            <name>vanisl_proj</name>
-            <extent>(-127.48989349743159, -127.48984981726348, 0.00043438545857253316, 0.00045974550950280422)</extent>
-            <layerId>1</layerId>
-        </VectorLayer>
-    </VectorData>
-    <VectorData>
-        <datasourceId>13</datasourceId>
-        <name>../data_example/shp/vanisl_proj.shp</name>
-        <layercount>1</layercount>
-        <format>ESRI Shapefile</format>
-        <VectorLayer>
-            <featurecount>1</featurecount>
-            <name>vanisl_proj</name>
-            <extent>(-127.48989349743159, -127.48984981726348, 0.00043438545857253316, 0.00045974550950280422)</extent>
-            <layerId>1</layerId>
-        </VectorLayer>
-    </VectorData>
-    <VectorData>
-        <datasourceId>14</datasourceId>
-        <name>../data_example/shp/vanisland.shp</name>
-        <layercount>1</layercount>
-        <format>ESRI Shapefile</format>
-        <VectorLayer>
-            <featurecount>1</featurecount>
-            <name>vanisland</name>
-            <extent>(-128.31944636678202, -123.44387543252594, 48.161439446366785, 50.973176470588243)</extent>
-            <layerId>1</layerId>
-        </VectorLayer>
-    </VectorData>
-    <VectorData>
-        <datasourceId>15</datasourceId>
-        <name>../data_example/shp/vanisland.shp</name>
-        <layercount>1</layercount>
-        <format>ESRI Shapefile</format>
-        <VectorLayer>
-            <featurecount>1</featurecount>
-            <name>vanisland</name>
-            <extent>(-128.31944636678202, -123.44387543252594, 48.161439446366785, 50.973176470588243)</extent>
+            <featurecount>2</featurecount>
+            <name>points2</name>
+            <extent>(-123.1866464339909, 0.27314112291350057, 39.31411229135054, 50.786039453717763)</extent>
             <layerId>1</layerId>
         </VectorLayer>
     </VectorData>
 </DataCatalogue>
+</xml>
