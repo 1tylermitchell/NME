@@ -1,29 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <DataCatalogue>
     <CatalogueProcess>
-        <SearchPath>/Users/tyler/code/nme/data_example</SearchPath>
-        <LaunchPath>/Users/tyler/src/google/spatialguru/nme/cat</LaunchPath>
-        <UserHome>/Users/tyler</UserHome>
+        <SearchPath>/Users/mine/code/nme/data_example</SearchPath>
+        <LaunchPath>/Users/mine/src/google/spatialguru/nme/cat</LaunchPath>
+        <UserHome>/Users/mine</UserHome>
         <IgnoredStrings>['.svn', '.shx', '.dbf']</IgnoredStrings>
         <DirCount>26</DirCount>
         <FileCount>44</FileCount>
-        <Timestamp>Thu Mar 27 23:52:37 2008</Timestamp>
+        <Timestamp>Thu Mar 27 23:59:20 2008</Timestamp>
     </CatalogueProcess>
     <VectorData>
         <FileStats>
-            <userName>tyler</userName>
-            <uniqueDigest>d80d88003f9d4ebfaf1beeb08384e869</uniqueDigest>
-            <userFullName>Tyler Mitchell</userFullName>
+            <userName>mine</userName>
+            <uniqueDigest>ff3fb31059992e428c93e78d3ac128f7</uniqueDigest>
+            <userFullName>Mine User</userFullName>
             <timeCreated>1204102125</timeCreated>
             <fileType>Directory</fileType>
             <userId>501</userId>
-            <timeAccessed>1206687157</timeAccessed>
+            <timeAccessed>1206687560</timeAccessed>
+            <fullPath>/Users/mine/code/nme/data_example/shp</fullPath>
             <groupId>501</groupId>
             <timeModified>1204102125</timeModified>
             <fileSize>748</fileSize>
         </FileStats>
         <datasourceId>1</datasourceId>
-        <name>/Users/tyler/code/nme/data_example/shp</name>
+        <name>/Users/mine/code/nme/data_example/shp</name>
         <layercount>3</layercount>
         <format>ESRI Shapefile</format>
         <VectorLayer>
@@ -47,19 +48,20 @@
     </VectorData>
     <RasterData>
         <FileStats>
-            <userName>tyler</userName>
-            <uniqueDigest>9113e26408bd697a76d5b199aab9a9ea</uniqueDigest>
-            <userFullName>Tyler Mitchell</userFullName>
+            <userName>mine</userName>
+            <uniqueDigest>66c063ff20be16ddcc68ece789dd040c</uniqueDigest>
+            <userFullName>Mine User</userFullName>
             <timeCreated>1203797511</timeCreated>
             <fileType>File</fileType>
             <userId>501</userId>
-            <timeAccessed>1206687157</timeAccessed>
+            <timeAccessed>1206687560</timeAccessed>
+            <fullPath>/Users/mine/code/nme/data_example/img/bg.jpg</fullPath>
             <groupId>501</groupId>
             <timeModified>1202359805</timeModified>
             <fileSize>2572</fileSize>
         </FileStats>
         <geotrans>(0.0, 1.0, 0.0, 0.0, 0.0, 1.0)</geotrans>
-        <name>/Users/tyler/code/nme/data_example/img/bg.jpg</name>
+        <name>/Users/mine/code/nme/data_example/img/bg.jpg</name>
         <RasterBand>
             <bandId>1</bandId>
             <max>255.0</max>
@@ -87,19 +89,20 @@
     </RasterData>
     <RasterData>
         <FileStats>
-            <userName>tyler</userName>
-            <uniqueDigest>e451b1998ca362e848e2a554c5ccf944</uniqueDigest>
-            <userFullName>Tyler Mitchell</userFullName>
+            <userName>mine</userName>
+            <uniqueDigest>ec5273663c42a41f96912f0c80ac20d0</uniqueDigest>
+            <userFullName>Mine User</userFullName>
             <timeCreated>1202359805</timeCreated>
             <fileType>File</fileType>
             <userId>501</userId>
-            <timeAccessed>1206687157</timeAccessed>
+            <timeAccessed>1206687560</timeAccessed>
+            <fullPath>/Users/mine/code/nme/data_example/img/osgeo_swag.png</fullPath>
             <groupId>501</groupId>
             <timeModified>1202359805</timeModified>
             <fileSize>118829</fileSize>
         </FileStats>
         <geotrans>(0.0, 1.0, 0.0, 0.0, 0.0, 1.0)</geotrans>
-        <name>/Users/tyler/code/nme/data_example/img/osgeo_swag.png</name>
+        <name>/Users/mine/code/nme/data_example/img/osgeo_swag.png</name>
         <RasterBand>
             <bandId>1</bandId>
             <max>65535.0</max>
@@ -127,19 +130,20 @@
     </RasterData>
     <RasterData>
         <FileStats>
-            <userName>tyler</userName>
-            <uniqueDigest>71d5cbe245ababbd979817bdbf96af01</uniqueDigest>
-            <userFullName>Tyler Mitchell</userFullName>
+            <userName>mine</userName>
+            <uniqueDigest>d090b801b072a21bcd81469622bac9b5</uniqueDigest>
+            <userFullName>Mine User</userFullName>
             <timeCreated>1202359805</timeCreated>
             <fileType>File</fileType>
             <userId>501</userId>
-            <timeAccessed>1206687157</timeAccessed>
+            <timeAccessed>1206687560</timeAccessed>
+            <fullPath>/Users/mine/code/nme/data_example/img/osgeo_swag.vrt</fullPath>
             <groupId>501</groupId>
             <timeModified>1202359805</timeModified>
             <fileSize>1211</fileSize>
         </FileStats>
         <geotrans>(0.0, 1.0, 0.0, 0.0, 0.0, 1.0)</geotrans>
-        <name>/Users/tyler/code/nme/data_example/img/osgeo_swag.vrt</name>
+        <name>/Users/mine/code/nme/data_example/img/osgeo_swag.vrt</name>
         <RasterBand>
             <bandId>1</bandId>
             <max>65535.0</max>
@@ -167,19 +171,20 @@
     </RasterData>
     <VectorData>
         <FileStats>
-            <userName>tyler</userName>
-            <uniqueDigest>f7cfe94cd68a0f65da262a120e16713f</uniqueDigest>
-            <userFullName>Tyler Mitchell</userFullName>
+            <userName>mine</userName>
+            <uniqueDigest>313d1cbfee5e39617ede4b3d0d51cb8f</uniqueDigest>
+            <userFullName>Mine User</userFullName>
             <timeCreated>1202359805</timeCreated>
             <fileType>File</fileType>
             <userId>501</userId>
-            <timeAccessed>1206687157</timeAccessed>
+            <timeAccessed>1206687560</timeAccessed>
+            <fullPath>/Users/mine/code/nme/data_example/shp/line.shp</fullPath>
             <groupId>501</groupId>
             <timeModified>1202359805</timeModified>
             <fileSize>2644</fileSize>
         </FileStats>
         <datasourceId>2</datasourceId>
-        <name>/Users/tyler/code/nme/data_example/shp/line.shp</name>
+        <name>/Users/mine/code/nme/data_example/shp/line.shp</name>
         <layercount>1</layercount>
         <format>ESRI Shapefile</format>
         <VectorLayer>
@@ -191,19 +196,20 @@
     </VectorData>
     <VectorData>
         <FileStats>
-            <userName>tyler</userName>
-            <uniqueDigest>c239f07571dfcbc6059191669981d670</uniqueDigest>
-            <userFullName>Tyler Mitchell</userFullName>
+            <userName>mine</userName>
+            <uniqueDigest>4ee597891731c48bf3ed39eec128048c</uniqueDigest>
+            <userFullName>Mine User</userFullName>
             <timeCreated>1202359805</timeCreated>
             <fileType>File</fileType>
             <userId>501</userId>
-            <timeAccessed>1206687157</timeAccessed>
+            <timeAccessed>1206687560</timeAccessed>
+            <fullPath>/Users/mine/code/nme/data_example/shp/line.shx</fullPath>
             <groupId>501</groupId>
             <timeModified>1202359805</timeModified>
             <fileSize>164</fileSize>
         </FileStats>
         <datasourceId>3</datasourceId>
-        <name>/Users/tyler/code/nme/data_example/shp/line.shp</name>
+        <name>/Users/mine/code/nme/data_example/shp/line.shp</name>
         <layercount>1</layercount>
         <format>ESRI Shapefile</format>
         <VectorLayer>
@@ -215,19 +221,20 @@
     </VectorData>
     <VectorData>
         <FileStats>
-            <userName>tyler</userName>
-            <uniqueDigest>77955aafbe8171b69eeef649022f58aa</uniqueDigest>
-            <userFullName>Tyler Mitchell</userFullName>
+            <userName>mine</userName>
+            <uniqueDigest>27a3407c4d89d90e817edd3bbdd74415</uniqueDigest>
+            <userFullName>Mine User</userFullName>
             <timeCreated>1202359805</timeCreated>
             <fileType>File</fileType>
             <userId>501</userId>
-            <timeAccessed>1206687157</timeAccessed>
+            <timeAccessed>1206687560</timeAccessed>
+            <fullPath>/Users/mine/code/nme/data_example/shp/line.xml</fullPath>
             <groupId>501</groupId>
             <timeModified>1202359805</timeModified>
             <fileSize>2579</fileSize>
         </FileStats>
         <datasourceId>4</datasourceId>
-        <name>/Users/tyler/code/nme/data_example/shp/line.xml</name>
+        <name>/Users/mine/code/nme/data_example/shp/line.xml</name>
         <layercount>1</layercount>
         <format>GML</format>
         <VectorLayer>
@@ -239,19 +246,20 @@
     </VectorData>
     <VectorData>
         <FileStats>
-            <userName>tyler</userName>
-            <uniqueDigest>8530f8f4981d71bccec0ed4f5e3f0814</uniqueDigest>
-            <userFullName>Tyler Mitchell</userFullName>
+            <userName>mine</userName>
+            <uniqueDigest>4dd364c69f875579141ed35d9bed8161</uniqueDigest>
+            <userFullName>Mine User</userFullName>
             <timeCreated>1202767227</timeCreated>
             <fileType>File</fileType>
             <userId>501</userId>
-            <timeAccessed>1206687157</timeAccessed>
+            <timeAccessed>1206687560</timeAccessed>
+            <fullPath>/Users/mine/code/nme/data_example/shp/linecopy.dbf</fullPath>
             <groupId>501</groupId>
             <timeModified>1202767227</timeModified>
             <fileSize>409</fileSize>
         </FileStats>
         <datasourceId>5</datasourceId>
-        <name>/Users/tyler/code/nme/data_example/shp/line.xml</name>
+        <name>/Users/mine/code/nme/data_example/shp/line.xml</name>
         <layercount>1</layercount>
         <format>GML</format>
         <VectorLayer>
@@ -263,19 +271,20 @@
     </VectorData>
     <VectorData>
         <FileStats>
-            <userName>tyler</userName>
-            <uniqueDigest>cb985641a0554bd6de23b90cc05de1a5</uniqueDigest>
-            <userFullName>Tyler Mitchell</userFullName>
+            <userName>mine</userName>
+            <uniqueDigest>f067163d73985b37cd909b5e9ccde56a</uniqueDigest>
+            <userFullName>Mine User</userFullName>
             <timeCreated>1202767223</timeCreated>
             <fileType>File</fileType>
             <userId>501</userId>
-            <timeAccessed>1206687157</timeAccessed>
+            <timeAccessed>1206687560</timeAccessed>
+            <fullPath>/Users/mine/code/nme/data_example/shp/linecopy.shp</fullPath>
             <groupId>501</groupId>
             <timeModified>1202767223</timeModified>
             <fileSize>2644</fileSize>
         </FileStats>
         <datasourceId>6</datasourceId>
-        <name>/Users/tyler/code/nme/data_example/shp/linecopy.shp</name>
+        <name>/Users/mine/code/nme/data_example/shp/linecopy.shp</name>
         <layercount>1</layercount>
         <format>ESRI Shapefile</format>
         <VectorLayer>
@@ -287,19 +296,20 @@
     </VectorData>
     <VectorData>
         <FileStats>
-            <userName>tyler</userName>
-            <uniqueDigest>7047f4c078f45b86ef0fdad34c625c59</uniqueDigest>
-            <userFullName>Tyler Mitchell</userFullName>
+            <userName>mine</userName>
+            <uniqueDigest>8f8d27922543e5ab14ac6b174d3c6c93</uniqueDigest>
+            <userFullName>Mine User</userFullName>
             <timeCreated>1202767232</timeCreated>
             <fileType>File</fileType>
             <userId>501</userId>
-            <timeAccessed>1206687157</timeAccessed>
+            <timeAccessed>1206687560</timeAccessed>
+            <fullPath>/Users/mine/code/nme/data_example/shp/linecopy.shx</fullPath>
             <groupId>501</groupId>
             <timeModified>1202767232</timeModified>
             <fileSize>164</fileSize>
         </FileStats>
         <datasourceId>7</datasourceId>
-        <name>/Users/tyler/code/nme/data_example/shp/linecopy.shp</name>
+        <name>/Users/mine/code/nme/data_example/shp/linecopy.shp</name>
         <layercount>1</layercount>
         <format>ESRI Shapefile</format>
         <VectorLayer>
@@ -311,19 +321,20 @@
     </VectorData>
     <VectorData>
         <FileStats>
-            <userName>tyler</userName>
-            <uniqueDigest>23bb7814253cc8e671a27af0eedfb6f6</uniqueDigest>
-            <userFullName>Tyler Mitchell</userFullName>
+            <userName>mine</userName>
+            <uniqueDigest>9085c0be8837fc5bd3ce00773850518f</uniqueDigest>
+            <userFullName>Mine User</userFullName>
             <timeCreated>1202767246</timeCreated>
             <fileType>File</fileType>
             <userId>501</userId>
-            <timeAccessed>1206687157</timeAccessed>
+            <timeAccessed>1206687560</timeAccessed>
+            <fullPath>/Users/mine/code/nme/data_example/shp/linecopy.xml</fullPath>
             <groupId>501</groupId>
             <timeModified>1202767246</timeModified>
             <fileSize>2579</fileSize>
         </FileStats>
         <datasourceId>8</datasourceId>
-        <name>/Users/tyler/code/nme/data_example/shp/linecopy.xml</name>
+        <name>/Users/mine/code/nme/data_example/shp/linecopy.xml</name>
         <layercount>1</layercount>
         <format>GML</format>
         <VectorLayer>
@@ -335,19 +346,20 @@
     </VectorData>
     <VectorData>
         <FileStats>
-            <userName>tyler</userName>
-            <uniqueDigest>b85cf232a235a929b38cf9bcbb5687dd</uniqueDigest>
-            <userFullName>Tyler Mitchell</userFullName>
+            <userName>mine</userName>
+            <uniqueDigest>fbdb13e7fed7424833ca4b57fe5c4f8b</uniqueDigest>
+            <userFullName>Mine User</userFullName>
             <timeCreated>1204102376</timeCreated>
             <fileType>File</fileType>
             <userId>501</userId>
-            <timeAccessed>1206687157</timeAccessed>
+            <timeAccessed>1206687560</timeAccessed>
+            <fullPath>/Users/mine/code/nme/data_example/shp/points2.shp</fullPath>
             <groupId>501</groupId>
             <timeModified>1204102376</timeModified>
             <fileSize>156</fileSize>
         </FileStats>
         <datasourceId>9</datasourceId>
-        <name>/Users/tyler/code/nme/data_example/shp/points2.shp</name>
+        <name>/Users/mine/code/nme/data_example/shp/points2.shp</name>
         <layercount>1</layercount>
         <format>ESRI Shapefile</format>
         <VectorLayer>
@@ -359,19 +371,20 @@
     </VectorData>
     <VectorData>
         <FileStats>
-            <userName>tyler</userName>
-            <uniqueDigest>c3c8e2369fab141545baa1bad7eb0dc2</uniqueDigest>
-            <userFullName>Tyler Mitchell</userFullName>
+            <userName>mine</userName>
+            <uniqueDigest>5e3ecc08de05fa0e4441d7bf7e4de7bf</uniqueDigest>
+            <userFullName>Mine User</userFullName>
             <timeCreated>1204102376</timeCreated>
             <fileType>File</fileType>
             <userId>501</userId>
-            <timeAccessed>1206687157</timeAccessed>
+            <timeAccessed>1206687560</timeAccessed>
+            <fullPath>/Users/mine/code/nme/data_example/shp/points2.shx</fullPath>
             <groupId>501</groupId>
             <timeModified>1204102376</timeModified>
             <fileSize>116</fileSize>
         </FileStats>
         <datasourceId>10</datasourceId>
-        <name>/Users/tyler/code/nme/data_example/shp/points2.shp</name>
+        <name>/Users/mine/code/nme/data_example/shp/points2.shp</name>
         <layercount>1</layercount>
         <format>ESRI Shapefile</format>
         <VectorLayer>

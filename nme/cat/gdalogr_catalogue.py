@@ -289,9 +289,10 @@ def fileStats(filepath):
   else:
     user_name = userinfo[0]
     user_full_name = userinfo[4]
-  md5_key = (user_name, file_size, time_modified, time_created)
+  full_path = os.path.abspath(filepath)
+  md5_key = (full_path, user_name, file_size, time_modified, time_created)
   md5_digest = getMd5HexDigest(md5_key)
-  resultsFileStats = {'userId': str(user_id), 'groupId': str(group_id), 'fileSize': str(file_size), 'timeAccessed': str(time_accessed), 'timeModified': str(time_modified), 'timeCreated': str(time_created), 'fileType': file_type, 'userName': user_name, 'userFullName': user_full_name, 'uniqueDigest': md5_digest}
+  resultsFileStats = {'fullPath': str(full_path), 'userId': str(user_id), 'groupId': str(group_id), 'fileSize': str(file_size), 'timeAccessed': str(time_accessed), 'timeModified': str(time_modified), 'timeCreated': str(time_created), 'fileType': file_type, 'userName': user_name, 'userFullName': user_full_name, 'uniqueDigest': md5_digest}
   return resultsFileStats
 
 def outputFileStats(writer, resultsFileStats):
