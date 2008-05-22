@@ -169,12 +169,16 @@ def processraster(raster, counterraster, currentpath):
     min, max = band.ComputeRasterMinMax()
     overviews = band.GetOverviewCount()
     resultseachband = {'bandId': str(bandnum+1), 'min': str(min),'max': str(max), 'overviews': str(overviews)}
+    resultseachbandShort = {'bandId': bandnum+1, 'min': min,'max': max, 'overviews': str(overviews)}
     resultsbands[str(bandnum+1)] = resultseachband
     sqlstringband = "INSERT INTO band %s VALUES %s;" % (('bandId','rasterId','min','max','overviews'), (int(bandnum+1),int(counterraster),int(min),int(max),str(overviews)))
-    if printSql: print sqlstringband
+#    if printSql: print sqlstringband
+    if printSql: print sqlOutput('band',resultseachbandShort)
   resultsraster = { 'bands': resultsbands, 'rasterId': str(counterraster), 'name': rastername, 'bandcount': str(bandcount), 'geotrans': str(geotrans), 'driver': str(driver), 'rasterX': str(rasterx), 'rasterY': str(rastery), 'project': wkt}
   sqlstringraster = "INSERT INTO raster %s VALUES %s;" % (('rasterId','name','bandcount','geotrans','driver','rasterX','rasterY','project'), (int(counterraster), rastername, int(bandcount), str(geotrans), str(driver),int(rasterx), int(rastery),str(wkt)))
-  if printSql: print sqlstringraster
+  resultsrasterShort =  {'rasterId':counterraster, 'name': rastername, 'bandcount': bandcount, 'geotrans': str(geotrans), 'driver': driver, 'rasterX': rasterx, 'rasterY': rastery, 'project': wkt}
+#  if printSql: print sqlstringraster
+  if printSql: print sqlOutput('raster',resultsrasterShort)
   return resultsraster, resultsFileStats
   
 def outputraster(writer, resultsraster, counterraster, countervds, resultsFileStats):
@@ -250,9 +254,9 @@ def sqlCreateTables():
     tables = ('process',) #,'dataset','layer','raster','band')
 
     for table in tables:
-        sqlStatement = "CREATE TABLE %s (%s);" % (tables, processColumns)
+        sqlStatement = "CREATE TABLE %s (%s);" % (table, processColumns)
         print sqlStatement
-
+        
 def sqlOutputVector(writer, resultsvector, counterraster, countervds):
   ##### NOT DONE NOR WORKING :)
   # output formatted into SQL inserts
