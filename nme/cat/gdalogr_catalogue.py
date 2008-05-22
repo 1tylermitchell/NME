@@ -23,7 +23,7 @@ TODO
 # DONE - higher level attributes about process: num of files, dirs search, timestamp
 # DONE - filesize, user/owner, moddate/timestamp for entries
 - extent values to GML or basic WKT bbox
-- decide on checksum process for determining changes
+# DONE - decide on checksum process for determining changes
 - decide on process -> datasource linking (timestamp?) for top level relations
 
 
@@ -127,7 +127,9 @@ def processStats(writer, walkerlist, skiplist, startpath):
   writer.elem("Timestamp", asctime())
   writer.pop()
   if printSql: 
-    print "INSERT INTO process %s VALUES %s;" % (('SearchPath','LaunchPath','UserHome','IgnoredString','DirCount','FileCount','Timestamp'),(str(startpath),str(os.getcwd()),str(os.getenv("HOME")), " ".join(map(str, skiplist)),int(len(dirlist)),int(len(filelist)),str(asctime())))
+    processValues = {'SearchPath':startpath,'LaunchPath':os.getcwd(),'UserHome':os.getenv("HOME"),'IgnoredString':" ".join(map(str, skiplist)),'DirCount':int(len(dirlist)),'FileCount':int(len(filelist)),'Timestamp':asctime()}
+    print sqlOutput('process',processValues)
+#    print "INSERT INTO process %s VALUES %s;" % (('SearchPath','LaunchPath','UserHome','IgnoredString','DirCount','FileCount','Timestamp'),(str(startpath),str(os.getcwd()),str(os.getenv("HOME")), " ".join(map(str, skiplist)),int(len(dirlist)),int(len(filelist)),str(asctime())))
 
 def skipfile(filepath, skiplist):
   skipstatus = None
@@ -212,11 +214,14 @@ def processvds(vector, countervds,currentpath):
     resultseachlayer = {'layerId': str(layernum+1), 'name': layername, 'featurecount': str(layerfcount), 'extent': layerextentraw}
     resultslayers[str(layernum+1)] = resultseachlayer
     sqlstringvlay = "INSERT INTO layer %s VALUES %s;" % (('layerId','datasourceId','name','featurecount','extent'), (layernum+1,countervds,layername,int(layerfcount),layerextentraw))
-    if printSql: print sqlstringvlay
+#    if printSql: print sqlstringvlay
+    if printSql: print sqlOutput('layer',resultseachlayer)
   resultsvds = { 'datasourceId': str(countervds), 'name': vdsname, 'format': vdsformat, 'layercount': str(vdslayercount) }
   sqlstringvds = "INSERT INTO datasource %s VALUES %s;" % (('datasourceId','name','format','layercount'), (countervds, vdsname, vdsformat, int(vdslayercount)))
   resultsvector = { 'resultsvds': resultsvds, 'resultslayers': resultslayers } 
-  if printSql: print sqlstringvds
+#  if printSql: print sqlstringvds
+  if printSql: print sqlOutput('dataset',resultsvds)
+
   return resultsvector,resultsFileStats
 
 def outputvector(writer, resultsvector, counterraster, countervds, resultsFileStats):
@@ -234,6 +239,19 @@ def outputvector(writer, resultsvector, counterraster, countervds, resultsFileSt
         writer.pop()
   writer.pop()
   return True
+
+def sqlOutput(tableName, valueDict):
+#    for eachitem, eachvalue in valueDict.iteritems():
+     sqlStatement = "INSERT INTO %s %s VALUES %s;" % (tableName, tuple((valueDict.keys())),tuple(valueDict.values()))
+     print sqlStatement
+
+def sqlCreateTables():
+    processColumns = "SearchPath VARCHAR, LaunchPath VARCHAR, UserHome  VARCHAR, IgnoredString VARCHAR, DirCount  INTEGER, FileCount INTEGER, Timestamp VARCHAR"
+    tables = ('process',) #,'dataset','layer','raster','band')
+
+    for table in tables:
+        sqlStatement = "CREATE TABLE %s (%s);" % (tables, processColumns)
+        print sqlStatement
 
 def sqlOutputVector(writer, resultsvector, counterraster, countervds):
   ##### NOT DONE NOR WORKING :)
