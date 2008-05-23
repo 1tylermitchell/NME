@@ -97,17 +97,17 @@ def startup():
       #print "Current file" + currentfile
       if (not skipfile(currentfile,skiplist) and tryopends(currentfile)):
         raster, vector = tryopends(currentfile)
-      if raster:
-        counterraster += 1
-        resultsraster,resultsFileStats = processraster(raster, counterraster, currentfile)
-        xmlraster = outputraster(writer, resultsraster, counterraster, countervds, resultsFileStats)
-      if vector:
-        if (not skipfile(vector.GetName(),skiplist)):
+        if raster:
+          counterraster += 1
+          resultsraster,resultsFileStats = processraster(raster, counterraster, currentfile)
+          xmlraster = outputraster(writer, resultsraster, counterraster, countervds, resultsFileStats)
+        if vector:
+          if (not skipfile(vector.GetName(),skiplist)):
  #         resultsFileStats = fileStats(currentfile)
  #         statfileStats = outputFileStats(writer, resultsFileStats)
-          countervds += 1
-          resultsvds,resultsFileStats = processvds(vector, countervds, currentfile)
-          xmlvector = outputvector(writer, resultsvds,counterraster,countervds,resultsFileStats)
+            countervds += 1
+            resultsvds,resultsFileStats = processvds(vector, countervds, currentfile)
+            xmlvector = outputvector(writer, resultsvds,counterraster,countervds,resultsFileStats)
   writer.pop()
 
 def processStats(writer, walkerlist, skiplist, startpath):
@@ -146,11 +146,11 @@ def tryopends(filepath):
     #print "trying" + filepath
     dsgdal = gdal.OpenShared(filepath)
   except gdal.GDALError:
-    return False
+    dsgdal = False #return False
   try:
     dsogr = ogr.OpenShared(filepath)
   except ogr.OGRError:
-    return False
+    dsogr = False #return False
   return dsgdal, dsogr
 
 def processraster(raster, counterraster, currentpath):
@@ -174,6 +174,7 @@ def processraster(raster, counterraster, currentpath):
   resultsraster = { 'bands': resultsbands, 'rasterId': str(counterraster), 'name': rastername, 'bandcount': str(bandcount), 'geotrans': str(geotrans), 'driver': str(driver), 'rasterX': str(rasterx), 'rasterY': str(rastery), 'project': wkt}
   resultsrasterShort =  {'rasterId':counterraster, 'name': rastername, 'bandcount': bandcount, 'geotrans': str(geotrans), 'driver': driver, 'rasterX': rasterx, 'rasterY': rastery, 'project': wkt}
   if printSql: print sqlOutput('raster',resultsrasterShort)
+  #Mapping(raster,layerextentraw,layername,layerftype) # mapping test
   return resultsraster, resultsFileStats
   
 def outputraster(writer, resultsraster, counterraster, countervds, resultsFileStats):
@@ -202,6 +203,7 @@ def processvds(vector, countervds,currentpath):
     layername = layer.GetName()
     layerfcount = str(layer.GetFeatureCount())
     layerextentraw = layer.GetExtent()
+    layerftype = featureTypeName(layer.GetLayerDefn().GetGeomType())
 
     # the following throws all the attributes into dictionaries of attributes, 
     # some of which are other dictionaries
@@ -210,18 +212,28 @@ def processvds(vector, countervds,currentpath):
     # resultsvds = datasource attributes
     # resultsvector = dict of datasource attributes, plus a dict of all layers
     # Note all get saved as strings, which isn't what you'd want for SQL output
-    resultseachlayer = {'layerId': str(layernum+1), 'name': layername, 'featurecount': str(layerfcount), 'extent': layerextentraw}
+    resultseachlayer = {'layerId': str(layernum+1), 'name': layername, 'featuretype': str(layerftype), 'featurecount': str(layerfcount), 'extent': layerextentraw}
     resultslayers[str(layernum+1)] = resultseachlayer
     sqlstringvlay = "INSERT INTO layer %s VALUES %s;" % (('layerId','datasourceId','name','featurecount','extent'), (layernum+1,countervds,layername,int(layerfcount),layerextentraw))
     if printSql: print sqlOutput('layer',resultseachlayer)
-#    Mapping(vector,layerextentraw) # mapping test
-
+    #if (layerftype <> 'UNKNOWN'):
+    #    Mapping(vector,layerextentraw,layername,layerftype) # mapping test
   resultsvds = { 'datasourceId': str(countervds), 'name': vdsname, 'format': vdsformat, 'layercount': str(vdslayercount) }
   sqlstringvds = "INSERT INTO datasource %s VALUES %s;" % (('datasourceId','name','format','layercount'), (countervds, vdsname, vdsformat, int(vdslayercount)))
   resultsvector = { 'resultsvds': resultsvds, 'resultslayers': resultslayers } 
   if printSql: print sqlOutput('dataset',resultsvds)
 
   return resultsvector,resultsFileStats
+
+def featureTypeName(inttype):
+    # Converts integer feature type to name (e.g. 1 = Point)
+    ftype = ''
+    if (inttype == ogr.wkbPoint): ftype = 'POINT'
+    elif (inttype == ogr.wkbLineString): ftype = 'LINE'
+    elif (inttype == ogr.wkbPolygon): ftype = 'POLYGON'
+    elif (inttype == 0): ftype = 'UNKNOWN'
+    else: print "-----Ftype conversion failure"
+    return ftype
 
 def outputvector(writer, resultsvector, counterraster, countervds, resultsFileStats):
   writer.push(u"VectorData")
@@ -300,21 +312,62 @@ def getMd5HexDigest(encodeString):
   return m.hexdigest()
 
 class Mapping:
-    import mapscript
-    def __init__(self,datasource,extent):
-        map = mapscript.mapObj
-        map.set_width = 400
-        map.set_height = 400
-        map.setExtent = (-180,-90,180,90)
+    def __init__(self,datasource,extent,layername,layerftype):
+        from mapscript import *
+        from time import time
+        map = mapObj()
+        map.setSize(400,400)
+        #ext = rectObj(-180,-90,180,90)
+        ext = rectObj(extent[0],extent[2],extent[1],extent[3]) # some trouble with some bad extents in my test data
+        map.extent = ext
+        map.units = MS_DD # should be programmatically set
+        lay = layerObj(map)
+        lay.name = "Autolayer"
+        lay.units = MS_DD
+        lay.data = datasource.GetName()
+        print lay.data
+        lay.status = MS_DEFAULT
+        cls = classObj(lay)
+        sty = styleObj()
+        col = colorObj(0,0,0)
+        symPoint = symbolObj
+        map.setSymbolSet("symbols/symbols.sym")
+        if (layerftype == 'POINT'): 
+            lay.type = MS_LAYER_POINT
+            sty.setSymbolByName = "achteck"
+            sty.width = 100
+            sty.color = col
+        elif (layerftype == 'LINE'): 
+            lay.type = MS_LAYER_LINE
+            sty.setSymbolByName = "punkt"
+            sty.width = 5
+            sty.color = col
+        elif (layerftype == 'POLYGON'): 
+            lay.type = MS_LAYER_POLYGON
+            sty.setSymbolByName = "circle"
+            sty.width = 10
+            sty.outlinecolor = col
+        elif (layerftype == 'RASTER'): 
+            lay.type = MS_LAYER_RASTER
+            sty.setSymbolByName = "squares"
+            sty.size = 10
+            sty.color = col
+        #sty.setSymbolByName(map,symname)
+        #sty.size = symsize
+        cls.insertStyle(sty)
+        try:
+            img = map.draw()
+            img.save(str(time()) + "auto.gif")
+            map.save(str(time()) + "auto.map")
+        except MapServerError:
+            return None
         # add layer
         # assign datasource to layer
         # add basic styling
         # apply styling to layer
         # open output image
         # write, close, cleanup
-        print datasource.GetName()
-        print str(extent)
-
+   
 
 if __name__ == '__main__':
   startup()
