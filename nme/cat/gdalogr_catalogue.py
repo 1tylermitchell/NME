@@ -129,7 +129,6 @@ def processStats(writer, walkerlist, skiplist, startpath):
   if printSql: 
     processValues = {'SearchPath':startpath,'LaunchPath':os.getcwd(),'UserHome':os.getenv("HOME"),'IgnoredString':" ".join(map(str, skiplist)),'DirCount':int(len(dirlist)),'FileCount':int(len(filelist)),'Timestamp':asctime()}
     print sqlOutput('process',processValues)
-#    print "INSERT INTO process %s VALUES %s;" % (('SearchPath','LaunchPath','UserHome','IgnoredString','DirCount','FileCount','Timestamp'),(str(startpath),str(os.getcwd()),str(os.getenv("HOME")), " ".join(map(str, skiplist)),int(len(dirlist)),int(len(filelist)),str(asctime())))
 
 def skipfile(filepath, skiplist):
   skipstatus = None
@@ -171,13 +170,9 @@ def processraster(raster, counterraster, currentpath):
     resultseachband = {'bandId': str(bandnum+1), 'min': str(min),'max': str(max), 'overviews': str(overviews)}
     resultseachbandShort = {'bandId': bandnum+1, 'min': min,'max': max, 'overviews': str(overviews)}
     resultsbands[str(bandnum+1)] = resultseachband
-    sqlstringband = "INSERT INTO band %s VALUES %s;" % (('bandId','rasterId','min','max','overviews'), (int(bandnum+1),int(counterraster),int(min),int(max),str(overviews)))
-#    if printSql: print sqlstringband
     if printSql: print sqlOutput('band',resultseachbandShort)
   resultsraster = { 'bands': resultsbands, 'rasterId': str(counterraster), 'name': rastername, 'bandcount': str(bandcount), 'geotrans': str(geotrans), 'driver': str(driver), 'rasterX': str(rasterx), 'rasterY': str(rastery), 'project': wkt}
-  sqlstringraster = "INSERT INTO raster %s VALUES %s;" % (('rasterId','name','bandcount','geotrans','driver','rasterX','rasterY','project'), (int(counterraster), rastername, int(bandcount), str(geotrans), str(driver),int(rasterx), int(rastery),str(wkt)))
   resultsrasterShort =  {'rasterId':counterraster, 'name': rastername, 'bandcount': bandcount, 'geotrans': str(geotrans), 'driver': driver, 'rasterX': rasterx, 'rasterY': rastery, 'project': wkt}
-#  if printSql: print sqlstringraster
   if printSql: print sqlOutput('raster',resultsrasterShort)
   return resultsraster, resultsFileStats
   
@@ -218,12 +213,12 @@ def processvds(vector, countervds,currentpath):
     resultseachlayer = {'layerId': str(layernum+1), 'name': layername, 'featurecount': str(layerfcount), 'extent': layerextentraw}
     resultslayers[str(layernum+1)] = resultseachlayer
     sqlstringvlay = "INSERT INTO layer %s VALUES %s;" % (('layerId','datasourceId','name','featurecount','extent'), (layernum+1,countervds,layername,int(layerfcount),layerextentraw))
-#    if printSql: print sqlstringvlay
     if printSql: print sqlOutput('layer',resultseachlayer)
+#    Mapping(vector,layerextentraw) # mapping test
+
   resultsvds = { 'datasourceId': str(countervds), 'name': vdsname, 'format': vdsformat, 'layercount': str(vdslayercount) }
   sqlstringvds = "INSERT INTO datasource %s VALUES %s;" % (('datasourceId','name','format','layercount'), (countervds, vdsname, vdsformat, int(vdslayercount)))
   resultsvector = { 'resultsvds': resultsvds, 'resultslayers': resultslayers } 
-#  if printSql: print sqlstringvds
   if printSql: print sqlOutput('dataset',resultsvds)
 
   return resultsvector,resultsFileStats
@@ -245,7 +240,6 @@ def outputvector(writer, resultsvector, counterraster, countervds, resultsFileSt
   return True
 
 def sqlOutput(tableName, valueDict):
-#    for eachitem, eachvalue in valueDict.iteritems():
      sqlStatement = "INSERT INTO %s %s VALUES %s;" % (tableName, tuple((valueDict.keys())),tuple(valueDict.values()))
      print sqlStatement
 
@@ -256,31 +250,6 @@ def sqlCreateTables():
     for table in tables:
         sqlStatement = "CREATE TABLE %s (%s);" % (table, processColumns)
         print sqlStatement
-        
-def sqlOutputVector(writer, resultsvector, counterraster, countervds):
-  ##### NOT DONE NOR WORKING :)
-  # output formatted into SQL inserts
-  #writer.push(u"VectorData")
-  for vectoritem, vectorvalue in resultsvector.iteritems(): # resultsvector includes two dictionaries
-    if vectoritem <> 'resultslayers':
-      tmpcolumns = []
-      tmpvalues = []
-      for vectordsitem, vectordsvalue in vectorvalue.iteritems(): # vectorvalue contains datasource attributes
-        #writer.elem(unicode(vectordsitem), unicode(vectordsvalue))
-        #print "INSERT INTO datasource ITEMS ('%s', '%s')" % (unicode(vectordsitem), unicode(vectordsvalue))
-        print type(vectordsvalue)
-        tmpcolumns.append(vectordsitem)
-        tmpvalues.append(vectordsvalue)
-      print "INSERT INTO datasource COLUMNS ('%s') VALUES ('%s');" % (tmpcolumns,tmpvalues)
-    #if vectoritem == 'resultslayers':
-    #  for layeritem, layervalue in vectorvalue.iteritems(): # vectorvalue contains a dictionary of the layers
-        #writer.push(u"VectorLayer")
-       # for layeritemdetails, layervaluedetails in layervalue.iteritems(): # layervalue contains layer attributes
-          #writer.elem(unicode(layeritemdetails), unicode(layervaluedetails))
-        #writer.pop()
-  #writer.pop()
-  return True
-
 
 ### TODO functions below...
 
@@ -329,6 +298,23 @@ def getMd5HexDigest(encodeString):
   m = md5.new()
   m.update(str(encodeString))
   return m.hexdigest()
+
+class Mapping:
+    import mapscript
+    def __init__(self,datasource,extent):
+        map = mapscript.mapObj
+        map.set_width = 400
+        map.set_height = 400
+        map.setExtent = (-180,-90,180,90)
+        # add layer
+        # assign datasource to layer
+        # add basic styling
+        # apply styling to layer
+        # open output image
+        # write, close, cleanup
+        print datasource.GetName()
+        print str(extent)
+
 
 if __name__ == '__main__':
   startup()
