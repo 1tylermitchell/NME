@@ -1,0 +1,830 @@
+#Achtung: diese Datei enthält mehr als die normalerweise zulässigen 64 Symbol-Definitionen. Daher sind einige Symbole auskommentiert. Um mehr als 64 Symbole benutzen zu können, müssen Sie einen mapserver mit MS_MAXSYMBOLS (mapsybols.h) > 64 bauen. 
+### Zeichen für Flächenschraffuren ###
+#1
+SYMBOL
+  NAME "linie-horizontal"
+  TYPE vector
+  POINTS
+    0 0.5
+    1 0.5
+  END
+END
+#2
+SYMBOL
+  NAME "linie-vertikal"
+  TYPE vector
+  POINTS
+    0.5 0
+    0.5 1
+  END
+END
+#3
+SYMBOL
+  NAME "diagonal-auf"
+  TYPE vector
+  POINTS
+    0 1
+    1 0
+  END
+END
+#4
+SYMBOL
+  NAME "diagonal-ab"
+  TYPE vector
+  POINTS
+    0 0
+    1 1
+  END
+END
+#5
+#SYMBOL   # Zeichen für eine Schraffur mit breiteren Linien, welche aber nicht durchgehend ist
+#  NAME "diagonal-auf2"
+#  TYPE vector
+#  POINTS
+#    0 0.8
+#    0.2 1
+#    1 0.2
+#    0.8 0
+#    0 0.8
+#  END
+#  FILLED TRUE
+#END
+
+### Linienmuster ###
+
+# gestrichelte Linien #
+#6
+SYMBOL
+  NAME "linie-gestr1"
+  TYPE ELLIPSE
+  POINTS
+    1 1
+  END
+  STYLE
+    20 10 20 10
+  END
+END
+#7
+SYMBOL
+  NAME "linie-gestr2"
+  TYPE ELLIPSE
+  POINTS
+    1 1
+  END
+  STYLE
+    10 5 10 5
+  END
+END
+#8
+SYMBOL
+  NAME "linie-gestr3"
+  TYPE ELLIPSE
+  POINTS
+    1 1
+  END
+  STYLE
+    6 3 6 3
+  END
+END
+#9
+SYMBOL
+  NAME "linie-gestr4"
+  TYPE ELLIPSE
+  POINTS
+    1 1
+  END
+  STYLE
+    10 10 10 10
+  END
+END
+
+# gepunktete Linien #
+#10
+SYMBOL
+  NAME "linie-gepunkt1"
+  TYPE ELLIPSE
+  POINTS
+    1 1
+  END
+  STYLE
+    1 10 1 10
+  END
+  FILLED TRUE
+END
+#11
+SYMBOL
+  NAME "linie-gepunkt2"
+  TYPE ELLIPSE
+  POINTS
+    1 1
+  END
+  STYLE
+    1 20 1 20
+  END
+  FILLED TRUE
+END
+#12
+SYMBOL
+  NAME "linie-gepunkt3"
+  TYPE ELLIPSE
+  POINTS
+    1 1
+  END
+  STYLE
+    1 41 1 41
+  END
+  FILLED TRUE
+END
+
+# Muster mit Punkten und Linien #
+#13
+SYMBOL # abwechselnd ein Linienstück und ein Punkt
+  NAME "grenze1"
+  TYPE ELLIPSE
+  POINTS
+    1 1
+  END
+  STYLE
+    10 5 1 5
+  END
+  FILLED TRUE
+END
+#14
+SYMBOL # grenzsignatur mit gleichem Muster, aber einem Rechteck als Grundelement
+  NAME "grenze2"
+  TYPE VECTOR
+  POINTS
+    0 0
+    1 0
+    1 0.8
+    0 0.8
+    0 0
+  END
+  STYLE
+    10 6 1 6
+  END
+  FILLED TRUE
+END
+#15
+SYMBOL # wie "rechteck-quer" aber mit einem STYLE für ein Linienmuster
+  NAME "rechteck-quer-st"
+  TYPE VECTOR
+  POINTS
+    0 0
+    0 0.6
+    1 0.6
+    1 0
+    0 0
+  END
+  FILLED TRUE
+  STYLE
+    12 22 12 22
+  END
+END
+
+#16
+SYMBOL # wie "rechteck-quer" aber mit einem typischen Linienmuster für Eisenbahnstrecken
+  NAME "rechteck-bahn"
+  TYPE VECTOR
+  POINTS
+    0 0
+    0 0.6
+    1 0.6
+    1 0
+    0 0
+  END
+  FILLED TRUE
+  STYLE
+    8 12 8 12
+  END
+END
+
+
+
+### Punkthafte Zeichen ###
+
+# Kreise und Ellipsen #
+#17
+SYMBOL
+  NAME "punkt"
+  TYPE ELLIPSE
+  POINTS
+    1 1
+  END
+  FILLED TRUE
+END
+#18
+SYMBOL # gleiches Zeichen wie "punkt" nur ohne Füllung und mit einem STYLE
+  NAME "kreis"
+  TYPE ELLIPSE
+  POINTS
+    1 1
+  END
+  STYLE
+    1 10 1 10
+  END
+END
+#19
+SYMBOL # gleiches Zeichen wie "punkt" nur ohne Füllung und mit einem STYLE
+  NAME "kreis_sol"
+  TYPE ELLIPSE
+  POINTS
+    1 1
+  END
+  STYLE
+    1 10 1 10
+  END
+  FILLED TRUE
+END
+#20
+SYMBOL
+  NAME "ellipse-flach"
+  TYPE ELLIPSE
+  POINTS
+    2 1.25
+  END
+  FILLED TRUE
+  STYLE
+    1 20 1 20
+  END
+END
+#21
+SYMBOL
+  NAME "ellipse-hoch"
+  TYPE ELLIPSE
+  POINTS
+    1.25 2
+  END
+  FILLED TRUE
+END
+
+# Dreiecke #
+#22
+SYMBOL # Dreieck mit einem STYLE für Linienmuster
+  NAME "dreieck"
+  TYPE VECTOR
+  POINTS
+    0 1
+    0.5 0
+    1 1
+    0 1
+  END
+  FILLED TRUE
+  STYLE
+    1 25 1 25
+  END
+END
+#23
+SYMBOL # wie dreieck aber ohne Füllung
+  NAME "dreieck-leer"
+  TYPE VECTOR
+  POINTS
+    0 2
+    1 0
+    2 2
+    0 2
+  END
+  STYLE
+    1 30 1 30
+  END
+END
+#24
+SYMBOL
+  NAME "dreieck-kopf"
+  TYPE VECTOR
+  POINTS
+    0 0
+    0.5 1
+    1 0
+    0 0
+  END
+  STYLE
+    1 20 1 20
+  END
+  FILLED TRUE
+END
+#25
+SYMBOL #minzise must be set to 4
+  NAME "zelt"
+  TYPE VECTOR
+  POINTS
+    0 4
+    2 0
+    4 4
+    3 4
+    2 2
+    1 4
+    0 4
+  END
+  FILLED TRUE
+END
+#26
+SYMBOL
+  NAME "zelt-leer"
+  TYPE VECTOR
+  POINTS
+    0 1
+    0.5 0
+    1 1
+    0.75 1
+    0.5 0.5
+    0.25 1
+    0 1
+  END
+  FILLED FALSE
+  STYLE
+    1 20 1 20
+  END
+  ANTIALIAS TRUE
+END
+
+# Rechtecke #
+#27
+#SYMBOL
+#  NAME "quadrat_solid"
+#  TYPE VECTOR
+#  POINTS
+#    0 0
+#    0 1
+#    1 1
+#    1 0
+#    0 0
+#  END
+#  FILLED TRUE
+#END
+#28
+SYMBOL
+  NAME "quadrat"
+  TYPE VECTOR
+  POINTS
+    0 0
+    0 1
+    1 1
+    1 0
+    0 0
+  END
+  FILLED TRUE
+  STYLE
+    1 20 1 20
+  END
+END
+#29
+SYMBOL # um 45-Grad gedrehtes Quadrat
+  NAME "quadrat-quer"
+  TYPE VECTOR
+  POINTS
+    0 0.5
+    0.5 0
+    1 0.5
+    0.5 1
+    0 0.5
+  END
+  FILLED TRUE
+END
+#30
+SYMBOL
+  NAME "rechteck-quer"
+  TYPE VECTOR
+  POINTS
+    0 0
+    0 0.6
+    1 0.6
+    1 0
+    0 0
+  END
+  FILLED TRUE
+END
+#31
+SYMBOL
+  NAME "rechteck-hoch"
+  TYPE VECTOR
+  POINTS
+    0 0
+    0 1
+    0.6 1
+    0.6 0
+    0 0
+  END
+  FILLED TRUE
+END
+
+# Kreuze #
+#32
+SYMBOL
+  NAME "kreuz1"
+  TYPE VECTOR
+  POINTS
+    0.5 0
+    0.5 1
+    -99 -99
+    0 0.5
+    1 0.5
+  END
+  STYLE
+    1 15 1 15
+  END
+END
+#33
+SYMBOL # Andreaskreuz
+  NAME "kreuz2"
+  TYPE VECTOR
+  POINTS
+    0 0
+    1 1
+    -99 -99
+    0 1
+    1 0
+  END
+  STYLE
+    1 15 1 15
+  END
+END
+#34
+SYMBOL # ein christliches Kreuz
+  NAME "kreuz3"
+  TYPE VECTOR
+  POINTS
+    0.3 0
+    0.3 1
+    -99 -99
+    0 0.3
+    0.6 0.3
+  END
+END
+#35
+SYMBOL # ein Rotes Kreuz typisches Kreuz
+  NAME "kreuz4"
+  TYPE VECTOR
+  POINTS
+    0 0.4
+    0.4 0.4
+    0.4 0
+    0.6 0
+    0.6 0.4
+    1 0.4
+    1 0.6
+    0.6 0.6
+    0.6 1
+    0.4 1
+    0.4 0.6
+    0 0.6
+    0 0.4
+  END
+  FILLED TRUE
+END
+
+# Vielecke #
+#36
+SYMBOL
+  NAME "haus"
+  TYPE VECTOR
+  POINTS
+    0 1
+    0 0.5
+    0.5 0
+    1 0.5
+    1 1
+    0 1
+  END
+  FILLED TRUE
+END
+#37
+SYMBOL
+  NAME "sechseck"
+  TYPE VECTOR
+  POINTS
+    0 0.25
+    0.5 0
+    1 0.25
+    1 0.75
+    0.5 1
+    0 0.75
+    0 0.25
+  END
+  FILLED TRUE
+END
+#38
+SYMBOL
+  NAME "achteck"
+  TYPE VECTOR
+  POINTS
+    0.3 0
+    0.7 0
+    1 0.3
+    1 0.7
+    0.7 1
+    0.3 1
+    0 0.7
+    0 0.3
+    0.3 0
+  END
+  FILLED TRUE
+END
+#39
+SYMBOL
+  NAME "stern"
+  TYPE VECTOR
+  POINTS
+    0 0.375
+    0.35 0.375
+    0.5 0
+    0.65 0.375
+    1 0.375
+    0.75 0.625
+    0.875 1
+    0.5 0.75
+    0.125 1
+    0.25 0.625
+    0 0.375
+  END
+  FILLED TRUE
+  STYLE
+    1 20 1 20
+  END
+END
+#40
+SYMBOL
+  NAME "zelt-leer_90"
+  TYPE VECTOR
+  POINTS
+	0 0
+	1 0.5
+	0 1
+	0 0.75
+	0.5 0.5
+	0 0.25
+	0 0
+  END
+  FILLED FALSE
+  STYLE
+    1 20 1 20
+  END
+END
+
+### Zeichen aus TrueTypeFonts ###
+#41
+SYMBOL # Linienelement für ein Flächenmuster
+  NAME "Font1"
+  TYPE TRUETYPE
+  FONT "symbols"
+  CHARACTER "&#61473;"
+  ANTIALIAS TRUE
+  GAP 10
+END
+#42
+SYMBOL # 45-Grad Linienelement für eine nicht durchgehende Schraffur
+  NAME "Font2"
+  TYPE TRUETYPE
+  FONT "symbols"
+  CHARACTER "&#61520;"
+  ANTIALIAS TRUE
+  GAP 10
+END
+#43
+SYMBOL # Buchstabe T aus Arial
+  NAME "T"
+  TYPE TRUETYPE
+  FONT "arial"
+  CHARACTER "&#84;"
+  ANTIALIAS TRUE
+  GAP 10
+END
+#44
+SYMBOL # Buchstabe U aus Arial-Fett
+  NAME "U"
+  TYPE TRUETYPE
+  FONT "arialblk"
+  CHARACTER "&#85;"
+  ANTIALIAS TRUE
+  GAP 10
+END
+#45
+SYMBOL # Buchstabe S aus Arial-Fett
+  NAME "S"
+  TYPE TRUETYPE
+  FONT "arialbd"
+  CHARACTER "&#83;"
+  ANTIALIAS TRUE
+  GAP 10
+END
+#46
+SYMBOL # Buchstabe H aus Arial-Fett
+  NAME "H"
+  TYPE TRUETYPE
+  FONT "arialbd"
+  CHARACTER "&#72;"
+  ANTIALIAS TRUE
+  GAP 10
+END
+#47
+SYMBOL # ein Zeichen für Sonne aus Arial-Fett
+  NAME "Sonne"
+  TYPE TRUETYPE
+  FONT "arialbd"
+  CHARACTER "&#9788;"
+  ANTIALIAS TRUE
+  GAP 10
+END
+
+### Rasterbilder ###
+#48
+SYMBOL
+  NAME "im_punkte1"
+  TYPE PIXMAP
+  IMAGE "flaeche1_1.png"
+  TRANSPARENT 13
+END
+#49
+SYMBOL
+  NAME "im_punkte2"
+  TYPE PIXMAP
+  IMAGE "flaeche2_1.png"
+  TRANSPARENT 8
+END
+#50
+SYMBOL
+  NAME "im_punkte3"
+  TYPE PIXMAP
+  IMAGE "flaeche3.png"
+  TRANSPARENT 2
+END
+#51
+SYMBOL
+  NAME "im_schraffur"
+  TYPE PIXMAP
+  IMAGE "schraffur.png"
+  TRANSPARENT 2
+END
+#52
+SYMBOL
+  NAME "im_stern"
+  TYPE PIXMAP
+  IMAGE "stern.png"
+  TRANSPARENT 8
+END
+#53
+SYMBOL
+  NAME "im_welle"
+  TYPE PIXMAP
+  IMAGE "welle.png"
+  TRANSPARENT 8
+END
+
+
+### Linienmuster mit dem SymbolTyp CARTOLINE###
+#54
+SYMBOL   
+  NAME "cartoline_butt"
+  TYPE cartoline
+  LINECAP butt  #[butt|round|square|triangle]
+  LINEJOIN miter #[round|miter|bevel]
+  LINEJOINMAXSIZE 3 #
+END
+SYMBOL   
+  NAME "cartoline_round"
+  TYPE cartoline
+  LINECAP round  #[butt|round|square|triangle]
+  LINEJOIN miter #[round|miter|bevel]
+  LINEJOINMAXSIZE 3 #
+END
+SYMBOL   
+  NAME "cartoline_square"
+  TYPE cartoline
+  LINECAP square  #[butt|round|square|triangle]
+  LINEJOIN miter #[round|miter|bevel]
+  LINEJOINMAXSIZE 3 #
+END
+#SYMBOL   
+#  NAME "cartoline_triangle"
+#  TYPE cartoline
+#  LINECAP triangle  #[butt|round|square|triangle]
+#  LINEJOIN miter #[round|miter|bevel]
+#  LINEJOINMAXSIZE 3 #
+#END
+
+# gestrichelte Linien #
+#55
+#SYMBOL
+#  NAME "linie-gestr1_C"
+#  TYPE cartoline
+#  LINECAP round
+#  LINEJOIN miter
+#  LINEJOINMAXSIZE 3
+#  STYLE
+#    20 10 20 10
+#  END
+#END
+#56
+#SYMBOL
+#  NAME "linie-gestr2_C"
+#  TYPE cartoline
+#  LINECAP round
+#  LINEJOIN miter
+#  LINEJOINMAXSIZE 3
+#  STYLE
+#    10 5 10 5
+#  END
+#END
+#57
+#SYMBOL
+#  NAME "linie-gestr3_C"
+#  TYPE cartoline
+#  LINECAP round
+#  LINEJOIN miter
+#  LINEJOINMAXSIZE 3
+#  STYLE
+#    6 3 6 3
+#  END
+#END
+#58
+#SYMBOL
+#  NAME "linie-gestr4_C"
+#  TYPE cartoline
+#  LINECAP round
+#  LINEJOIN miter
+#  LINEJOINMAXSIZE 3
+#  STYLE
+#    10 10 10 10
+#  END
+#END
+
+# gepunktete Linien #
+#59
+#SYMBOL
+#  NAME "linie-gepunkt1_C"
+#  TYPE cartoline
+#  LINECAP round
+#  LINEJOIN miter
+#  LINEJOINMAXSIZE 3
+#  STYLE
+#    1 10 1 10
+#  END
+#END
+#60
+SYMBOL
+  NAME "linie-gepunkt2_C"
+  TYPE cartoline
+  LINECAP butt
+  LINEJOIN miter
+  LINEJOINMAXSIZE 3
+  STYLE
+    1 20 1 20
+  END
+END
+#61
+#SYMBOL
+#  NAME "linie-gepunkt3_C"
+#  TYPE cartoline
+#  LINECAP round
+#  LINEJOIN miter
+#  LINEJOINMAXSIZE 3
+#  STYLE
+#    1 41 1 41
+#  END
+#END
+
+# Muster mit Punkten und Linien #
+#62
+SYMBOL # abwechselnd ein Linienstück und ein Punkt
+  NAME "grenze1_C"
+  TYPE cartoline
+  LINECAP round
+  LINEJOIN miter
+  LINEJOINMAXSIZE 3
+  STYLE
+    10 5 1 5
+  END
+END
+#63
+SYMBOL # abwechselnd ein Linienstück und ein Punkt
+  NAME "grenze2_C"
+  TYPE cartoline
+  LINECAP butt
+  LINEJOIN miter
+  LINEJOINMAXSIZE 3
+  STYLE
+    15 10 5 10
+  END
+END
+#64
+SYMBOL # abwechselnd ein Linienstück und ein Punkt
+  NAME "grenze3_C"
+  TYPE cartoline
+  LINECAP round
+  LINEJOIN miter
+  LINEJOINMAXSIZE 3
+  STYLE
+    1 10 1 10
+  END
+END
+#64
+SYMBOL # 
+  NAME "grenze4_C"
+  TYPE cartoline
+  LINECAP round
+  LINEJOIN bevel
+  LINEJOINMAXSIZE 3
+  STYLE
+    20 30 20 30
+  END
+END
