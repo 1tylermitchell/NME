@@ -3,9 +3,9 @@
 <xsl:template match="/">
 	<html>
 	<head>
-	<script type="text/javascript" src="mootools.js"></script>
-	<script type="text/javascript" src="catalogue.js"></script>
-	<link rel="stylesheet" href="catalogue.css" title="tnrg style" type="text/css" />
+	<script type="text/javascript" src="js/mootools.js"></script>
+	<script type="text/javascript" src="js/catalogue.js"></script>
+	<link rel="stylesheet" href="css/catalogue.css" title="tnrg style" type="text/css" />
 	</head>
 	<body>
 		<h1>Project Data Catalogue</h1>

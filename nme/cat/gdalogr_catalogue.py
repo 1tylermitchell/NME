@@ -44,6 +44,10 @@ import itertools
 # xmlgen.py script required in same folder
 from xmlgen import XMLWriter
 
+# Following for class Mapping()
+#from mapscript import *
+#from time import time
+
 def Usage():
     print 'Usage: gdalogr_catalogue.py directory [SQL]'
     print
@@ -161,6 +165,7 @@ def processraster(raster, counterraster, currentpath):
   rasterx = raster.RasterXSize
   rastery = raster.RasterYSize
   wkt = raster.GetProjection()
+  extent = (geotrans[0]), (geotrans[3]), (geotrans[0] + ( geotrans[1] * rasterx )), (geotrans[3] + ( geotrans[5] * rastery ))
   resultsbands = {}
   resultsFileStats = fileStats(currentpath)
   for bandnum in range(bandcount):
@@ -175,6 +180,7 @@ def processraster(raster, counterraster, currentpath):
   resultsrasterShort =  {'rasterId':counterraster, 'name': rastername, 'bandcount': bandcount, 'geotrans': str(geotrans), 'driver': driver, 'rasterX': rasterx, 'rasterY': rastery, 'project': wkt}
   if printSql: print sqlOutput('raster',resultsrasterShort)
   #Mapping(raster,layerextentraw,layername,layerftype) # mapping test
+  Mapping(raster,extent,rastername,'RASTER') # mapping test
   return resultsraster, resultsFileStats
   
 def outputraster(writer, resultsraster, counterraster, countervds, resultsFileStats):
@@ -316,6 +322,7 @@ class Mapping:
         from mapscript import *
         from time import time
         map = mapObj()
+	print "checkpoint 1"
         map.setSize(400,400)
         #ext = rectObj(-180,-90,180,90)
         ext = rectObj(extent[0],extent[2],extent[1],extent[3]) # some trouble with some bad extents in my test data
