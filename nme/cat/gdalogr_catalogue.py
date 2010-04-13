@@ -39,6 +39,7 @@ except ImportError:
 
 import os, sys
 import itertools
+import getopt
 
 # Following for xml output
 # xmlgen.py script required in same folder
@@ -54,27 +55,29 @@ def Usage():
     sys.exit(1)
 
 # Argument processing
-if len(sys.argv) > 1:
-  directory = sys.argv[1]
-  if len(sys.argv) > 2:
-    if sys.argv[2] == "SQL":
-      printSql = True
-  else: printSql = False
-else:
-  Usage()
+#if len(sys.argv) > 1:
+#  directory = sys.argv[1]
+#  if len(sys.argv) > 2:
+#    if sys.argv[2] == "SQL":
+#      printSql = True
+#  else: printSql = False
+#else:
+#  Usage()
 
 def startup():
+  #directory = sys.argv[1]
   gdal.PushErrorHandler()
   skiplist = ['.svn','.shx','.dbf']
-  startpath = directory
+  startpath = options.directory
   pathwalker = os.walk(startpath)
   walkers = itertools.tee(pathwalker)
   counterraster = 0
   countervds = 0
   writer = XMLWriter()
   writer.push("DataCatalogue")
+
 #  walkerlist = list(copy.pathwalker)
-  processStats(writer, walkers[1], skiplist, startpath)
+  processStats(writer, walkers[1], skiplist, startpath,xmlroot)
   for eachpath in walkers[0]:
     startdir = eachpath[0]
     alldirs = eachpath[1]
@@ -114,7 +117,7 @@ def startup():
             xmlvector = outputvector(writer, resultsvds,counterraster,countervds,resultsFileStats)
   writer.pop()
 
-def processStats(writer, walkerlist, skiplist, startpath):
+def processStats(writer, walkerlist, skiplist, startpath, xmlroot):
   from time import asctime
   #walkerList = list(pathwalker)
   dirlist, filelist = [], []
@@ -130,9 +133,32 @@ def processStats(writer, walkerlist, skiplist, startpath):
   writer.elem("FileCount", str(len(filelist)))
   writer.elem("Timestamp", asctime())
   writer.pop()
-  if printSql: 
+ 
+  xmlcatalog = appendXML(xmlroot, "CatalogueProcess")
+  appendXML(xmlcatalog, "SearchPath", startpath)
+  appendXML(xmlcatalog, "LaunchPath", os.getcwd())
+  appendXML(xmlcatalog, "UserHome", os.getenv("HOME"))
+  appendXML(xmlcatalog, "IgnoredStrings", str(skiplist))
+  appendXML(xmlcatalog, "DirCount", str(len(dirlist)))
+  appendXML(xmlcatalog, "FileCount", str(len(filelist)))
+  appendXML(xmlcatalog, "Timestamp", asctime())
+  
+  if options.printSql: 
     processValues = {'SearchPath':startpath,'LaunchPath':os.getcwd(),'UserHome':os.getenv("HOME"),'IgnoredString':" ".join(map(str, skiplist)),'DirCount':int(len(dirlist)),'FileCount':int(len(filelist)),'Timestamp':asctime()}
     print sqlOutput('process',processValues)
+
+def startXML():
+  xmlroot = ET.Element("DataCatalogue")
+  return xmlroot
+
+def appendXML(elementroot, subelement, subelstring=None):
+  newelement = ET.SubElement(elementroot, subelement)
+  newelement.text = subelstring
+  return newelement
+
+def writeXML(xmlroot):
+  xmltree = ET.ElementTree(xmlroot)
+  xmltree.write(options.logfile)
 
 def skipfile(filepath, skiplist):
   skipstatus = None
@@ -175,12 +201,11 @@ def processraster(raster, counterraster, currentpath):
     resultseachband = {'bandId': str(bandnum+1), 'min': str(min),'max': str(max), 'overviews': str(overviews)}
     resultseachbandShort = {'bandId': bandnum+1, 'min': min,'max': max, 'overviews': str(overviews)}
     resultsbands[str(bandnum+1)] = resultseachband
-    if printSql: print sqlOutput('band',resultseachbandShort)
+    if options.printSql: print sqlOutput('band',resultseachbandShort)
   resultsraster = { 'bands': resultsbands, 'rasterId': str(counterraster), 'name': rastername, 'bandcount': str(bandcount), 'geotrans': str(geotrans), 'driver': str(driver), 'rasterX': str(rasterx), 'rasterY': str(rastery), 'project': wkt}
   resultsrasterShort =  {'rasterId':counterraster, 'name': rastername, 'bandcount': bandcount, 'geotrans': str(geotrans), 'driver': driver, 'rasterX': rasterx, 'rasterY': rastery, 'project': wkt}
-  if printSql: print sqlOutput('raster',resultsrasterShort)
-  #Mapping(raster,layerextentraw,layername,layerftype) # mapping test
-  Mapping(raster,extent,rastername,'RASTER') # mapping test
+  if options.printSql: print sqlOutput('raster',resultsrasterShort)
+  #Mapping(raster,extent,rastername,'RASTER') # mapping test
   return resultsraster, resultsFileStats
   
 def outputraster(writer, resultsraster, counterraster, countervds, resultsFileStats):
@@ -221,13 +246,13 @@ def processvds(vector, countervds,currentpath):
     resultseachlayer = {'layerId': str(layernum+1), 'name': layername, 'featuretype': str(layerftype), 'featurecount': str(layerfcount), 'extent': layerextentraw}
     resultslayers[str(layernum+1)] = resultseachlayer
     sqlstringvlay = "INSERT INTO layer %s VALUES %s;" % (('layerId','datasourceId','name','featurecount','extent'), (layernum+1,countervds,layername,int(layerfcount),layerextentraw))
-    if printSql: print sqlOutput('layer',resultseachlayer)
+    if options.printSql: print sqlOutput('layer',resultseachlayer)
     #if (layerftype <> 'UNKNOWN'):
     #    Mapping(vector,layerextentraw,layername,layerftype) # mapping test
   resultsvds = { 'datasourceId': str(countervds), 'name': vdsname, 'format': vdsformat, 'layercount': str(vdslayercount) }
   sqlstringvds = "INSERT INTO datasource %s VALUES %s;" % (('datasourceId','name','format','layercount'), (countervds, vdsname, vdsformat, int(vdslayercount)))
   resultsvector = { 'resultsvds': resultsvds, 'resultslayers': resultslayers } 
-  if printSql: print sqlOutput('dataset',resultsvds)
+  if options.printSql: print sqlOutput('dataset',resultsvds)
 
   return resultsvector,resultsFileStats
 
@@ -311,6 +336,10 @@ def outputFileStats(writer, resultsFileStats):
   writer.pop()
   return True
 
+def outputXml(root,newelement):
+  SubElement(root,newelement)
+  return 
+  
 def getMd5HexDigest(encodeString):
   import md5
   m = md5.new()
@@ -319,43 +348,47 @@ def getMd5HexDigest(encodeString):
 
 class Mapping:
     def __init__(self,datasource,extent,layername,layerftype):
-        from mapscript import *
+        #from mapscript import *
+	import mapscript
         from time import time
-        map = mapObj()
+        tmap = mapscript.mapObj()
 	print "checkpoint 1"
         map.setSize(400,400)
         #ext = rectObj(-180,-90,180,90)
-        ext = rectObj(extent[0],extent[2],extent[1],extent[3]) # some trouble with some bad extents in my test data
+        ext = mapscript.rectObj(extent[0],extent[2],extent[1],extent[3]) # some trouble with some bad extents in my test data
         map.extent = ext
-        map.units = MS_DD # should be programmatically set
-        lay = layerObj(map)
+        map.units = mapscript.MS_DD # should be programmatically set
+        lay = mapscript.layerObj(map)
         lay.name = "Autolayer"
-        lay.units = MS_DD
-        lay.data = datasource.GetName()
+        lay.units = mapscript.MS_DD
+        if (layerftype == 'RASTER'):
+		lay.data = datasource.GetDescription()
+	else:
+		lay.data = datasource.GetName()
         print lay.data
-        lay.status = MS_DEFAULT
-        cls = classObj(lay)
-        sty = styleObj()
-        col = colorObj(0,0,0)
-        symPoint = symbolObj
-        map.setSymbolSet("symbols/symbols.sym")
+        lay.status = mapscript.MS_DEFAULT
+        cls = mapscript.classObj(lay)
+        sty = mapscript.styleObj()
+        col = mapscript.colorObj(0,0,0)
+#        symPoint = mapscript.symbolObj
+        map.setSymbolSet("symbols/symbols_basic.sym")
         if (layerftype == 'POINT'): 
-            lay.type = MS_LAYER_POINT
+            lay.type = mapscript.MS_LAYER_POINT
             sty.setSymbolByName = "achteck"
             sty.width = 100
             sty.color = col
         elif (layerftype == 'LINE'): 
-            lay.type = MS_LAYER_LINE
+            lay.type = mapscript.MS_LAYER_LINE
             sty.setSymbolByName = "punkt"
             sty.width = 5
             sty.color = col
         elif (layerftype == 'POLYGON'): 
-            lay.type = MS_LAYER_POLYGON
+            lay.type = mapscript.MS_LAYER_POLYGON
             sty.setSymbolByName = "circle"
             sty.width = 10
             sty.outlinecolor = col
         elif (layerftype == 'RASTER'): 
-            lay.type = MS_LAYER_RASTER
+            lay.type = mapscript.MS_LAYER_RASTER
             sty.setSymbolByName = "squares"
             sty.size = 10
             sty.color = col
@@ -374,9 +407,25 @@ class Mapping:
         # apply styling to layer
         # open output image
         # write, close, cleanup
-   
+
 
 if __name__ == '__main__':
+  from optparse import OptionParser, OptionGroup
+  parser = OptionParser()
+  parser.add_option("-d","--dir", action="store", type="string", dest="directory", help="Top level folder to start scanning from")
+  parser.add_option("-f","--file", action="store", type="string", dest="logfile", help="Output log file (not written to stdout)" )
+  group = OptionGroup(parser, "Hack Options", "May not function without advanced knowledge")
+  group.add_option("-s","--sql", action="store_true", dest="printSql", help="Output results in SQL INSERT statements instead of XML")
+  group.add_option("-p","--pretty", action="store_true", dest="pretty", help="Print easy to read XML to stdout")
+  parser.add_option_group(group)
+  (options, args) = parser.parse_args()
+
+  from xml.etree.ElementTree import Element, SubElement
+  import xml.etree.ElementTree as ET
+
+  from ElementTree_pretty import prettify
+  xmlroot = startXML()
   startup()
-  print "</xml>"
+  writeXML(xmlroot)
+  if options.pretty: print prettify(xmlroot)
 
