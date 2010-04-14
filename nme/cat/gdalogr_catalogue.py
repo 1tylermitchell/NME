@@ -40,6 +40,7 @@ except ImportError:
 import os, sys
 import itertools
 import getopt
+from string import strip
 
 # Following for xml output
 # xmlgen.py script required in same folder
@@ -73,11 +74,9 @@ def startup():
   walkers = itertools.tee(pathwalker)
   counterraster = 0
   countervds = 0
-  writer = XMLWriter()
-  writer.push("DataCatalogue")
 
 #  walkerlist = list(copy.pathwalker)
-  processStats(writer, walkers[1], skiplist, startpath,xmlroot)
+  processStats(walkers[1], skiplist, startpath,xmlroot)
   for eachpath in walkers[0]:
     startdir = eachpath[0]
     alldirs = eachpath[1]
@@ -92,13 +91,13 @@ def startup():
           counterraster += 1
           print counterraster
           resultsraster,resultsFileStats = processraster(raster,counterraster,currentdir)
-          xmlraster = outputraster(writer, resultsraster, counterraster, countervds, resultsFileStats)
+          xmlraster = outputraster(resultsraster, counterraster, countervds, resultsFileStats, xmlroot)
         if vector:
  #         resultsFileStats = fileStats(currentdir)
  #         statfileStats = outputFileStats(writer, resultsFileStats)
           countervds += 1
           resultsvds,resultsFileStats = processvds(vector,countervds,currentdir)
-          xmlvector = outputvector(writer, resultsvds,counterraster,countervds,resultsFileStats)
+          xmlvector = outputvector(resultsvds,counterraster,countervds,resultsFileStats, xmlroot)
     for eachfile in allfiles:
       currentfile = "/".join([startdir, eachfile])
       #print "Current file" + currentfile
@@ -107,32 +106,22 @@ def startup():
         if raster:
           counterraster += 1
           resultsraster,resultsFileStats = processraster(raster, counterraster, currentfile)
-          xmlraster = outputraster(writer, resultsraster, counterraster, countervds, resultsFileStats)
+          xmlraster = outputraster(resultsraster, counterraster, countervds, resultsFileStats,xmlroot)
         if vector:
           if (not skipfile(vector.GetName(),skiplist)):
  #         resultsFileStats = fileStats(currentfile)
  #         statfileStats = outputFileStats(writer, resultsFileStats)
             countervds += 1
             resultsvds,resultsFileStats = processvds(vector, countervds, currentfile)
-            xmlvector = outputvector(writer, resultsvds,counterraster,countervds,resultsFileStats)
-  writer.pop()
+            xmlvector = outputvector(resultsvds,counterraster,countervds,resultsFileStats,xmlroot)
 
-def processStats(writer, walkerlist, skiplist, startpath, xmlroot):
+def processStats(walkerlist, skiplist, startpath, xmlroot):
   from time import asctime
   #walkerList = list(pathwalker)
   dirlist, filelist = [], []
   for entry in walkerlist:
     dirlist += entry[1]
     filelist += entry[2]
-  writer.push("CatalogueProcess")
-  writer.elem("SearchPath", startpath)
-  writer.elem("LaunchPath", os.getcwd())
-  writer.elem("UserHome", os.getenv("HOME"))
-  writer.elem("IgnoredStrings", str(skiplist))
-  writer.elem("DirCount", str(len(dirlist)))
-  writer.elem("FileCount", str(len(filelist)))
-  writer.elem("Timestamp", asctime())
-  writer.pop()
  
   xmlcatalog = appendXML(xmlroot, "CatalogueProcess")
   appendXML(xmlcatalog, "SearchPath", startpath)
@@ -186,12 +175,12 @@ def tryopends(filepath):
 def processraster(raster, counterraster, currentpath):
   rastername = raster.GetDescription()
   bandcount = raster.RasterCount
-  geotrans = raster.GetGeoTransform()
+  geotrans = strip(str(raster.GetGeoTransform()),"()")
   driver = raster.GetDriver().LongName
   rasterx = raster.RasterXSize
   rastery = raster.RasterYSize
   wkt = raster.GetProjection()
-  extent = (geotrans[0]), (geotrans[3]), (geotrans[0] + ( geotrans[1] * rasterx )), (geotrans[3] + ( geotrans[5] * rastery ))
+  #extent = (geotrans[0]), (geotrans[3]), (geotrans[0] + ( geotrans[1] * rasterx )), (geotrans[3] + ( geotrans[5] * rastery ))
   resultsbands = {}
   resultsFileStats = fileStats(currentpath)
   for bandnum in range(bandcount):
@@ -202,25 +191,24 @@ def processraster(raster, counterraster, currentpath):
     resultseachbandShort = {'bandId': bandnum+1, 'min': min,'max': max, 'overviews': str(overviews)}
     resultsbands[str(bandnum+1)] = resultseachband
     if options.printSql: print sqlOutput('band',resultseachbandShort)
-  resultsraster = { 'bands': resultsbands, 'rasterId': str(counterraster), 'name': rastername, 'bandcount': str(bandcount), 'geotrans': str(geotrans), 'driver': str(driver), 'rasterX': str(rasterx), 'rasterY': str(rastery), 'project': wkt}
-  resultsrasterShort =  {'rasterId':counterraster, 'name': rastername, 'bandcount': bandcount, 'geotrans': str(geotrans), 'driver': driver, 'rasterX': rasterx, 'rasterY': rastery, 'project': wkt}
+  resultsraster = { 'bands': resultsbands, 'rasterId': str(counterraster), 'name': rastername, 'bandcount': str(bandcount), 'geotrans': str(geotrans), 'driver': str(driver), 'rasterX': str(rasterx), 'rasterY': str(rastery), 'projection': wkt}
+  resultsrasterShort =  {'rasterId':counterraster, 'name': rastername, 'bandcount': bandcount, 'geotrans': str(geotrans), 'driver': driver, 'rasterX': rasterx, 'rasterY': rastery, 'projection': wkt}
   if options.printSql: print sqlOutput('raster',resultsrasterShort)
   #Mapping(raster,extent,rastername,'RASTER') # mapping test
   return resultsraster, resultsFileStats
   
-def outputraster(writer, resultsraster, counterraster, countervds, resultsFileStats):
-  writer.push(u"RasterData")
-  statfileStats = outputFileStats(writer, resultsFileStats)
+def outputraster(resultsraster, counterraster, countervds, resultsFileStats, xmlroot):
+  xmlraster = appendXML(xmlroot, "RasterData")
+
+  statfileStats = outputFileStats(resultsFileStats, xmlraster)
   for rasteritem, rastervalue in resultsraster.iteritems(): # for each raster attribute
     if rasteritem <> 'bands':
-      writer.elem(unicode(rasteritem), unicode(rastervalue))
+      appendXML(xmlraster, rasteritem, rastervalue)
     if rasteritem == 'bands':
       for banditem, bandvalue in rastervalue.iteritems(): # for each band
-        writer.push(u"RasterBand")
+	xmlband = appendXML(xmlraster, "RasterBand")
         for banditemdetails, bandvaluedetails in bandvalue.iteritems():
-          writer.elem(unicode(banditemdetails), unicode(bandvaluedetails))
-        writer.pop()
-  writer.pop()
+	  appendXML(xmlband, banditemdetails, bandvaluedetails)
   return True
 
 def processvds(vector, countervds,currentpath):
@@ -233,7 +221,7 @@ def processvds(vector, countervds,currentpath):
     layer = vector.GetLayer(layernum)
     layername = layer.GetName()
     layerfcount = str(layer.GetFeatureCount())
-    layerextentraw = layer.GetExtent()
+    layerextentraw = strip(str(layer.GetExtent()),"()")
     layerftype = featureTypeName(layer.GetLayerDefn().GetGeomType())
 
     # the following throws all the attributes into dictionaries of attributes, 
@@ -266,20 +254,20 @@ def featureTypeName(inttype):
     else: print "-----Ftype conversion failure"
     return ftype
 
-def outputvector(writer, resultsvector, counterraster, countervds, resultsFileStats):
-  writer.push(u"VectorData")
-  statfileStats = outputFileStats(writer, resultsFileStats)
+def outputvector(resultsvector, counterraster, countervds, resultsFileStats,xmlroot):
+  xmlvector = appendXML(xmlroot, "VectorData")
+  statfileStats = outputFileStats(resultsFileStats, xmlvector)
   for vectoritem, vectorvalue in resultsvector.iteritems(): # resultsvector includes two dictionaries
     if vectoritem <> 'resultslayers':
       for vectordsitem, vectordsvalue in vectorvalue.iteritems(): # vectorvalue contains datasource attributes
-        writer.elem(unicode(vectordsitem), unicode(vectordsvalue))
+	appendXML(xmlvector, vectordsitem, vectordsvalue)
+
     if vectoritem == 'resultslayers':
       for layeritem, layervalue in vectorvalue.iteritems(): # vectorvalue contains a dictionary of the layers
-        writer.push(u"VectorLayer")
+        xmlvectorlayer = appendXML(xmlvector, "VectorLayer")
+
         for layeritemdetails, layervaluedetails in layervalue.iteritems(): # layervalue contains layer attributes
-          writer.elem(unicode(layeritemdetails), unicode(layervaluedetails))
-        writer.pop()
-  writer.pop()
+	  appendXML(xmlvectorlayer, layeritemdetails, layervaluedetails)
   return True
 
 def sqlOutput(tableName, valueDict):
@@ -329,11 +317,10 @@ def fileStats(filepath):
   resultsFileStats = {'fullPath': str(full_path), 'userId': str(user_id), 'groupId': str(group_id), 'fileSize': str(file_size), 'timeAccessed': str(time_accessed), 'timeModified': str(time_modified), 'timeCreated': str(time_created), 'fileType': file_type, 'userName': user_name, 'userFullName': user_full_name, 'uniqueDigest': md5_digest}
   return resultsFileStats
 
-def outputFileStats(writer, resultsFileStats):
-  writer.push(u"FileStats")
+def outputFileStats(resultsFileStats, xmlroot):
+  xmlfilestats = appendXML(xmlroot, "FileStats")
   for statitem, statvalue in resultsFileStats.iteritems():
-    writer.elem(unicode(statitem), unicode(statvalue))
-  writer.pop()
+    appendXML(xmlfilestats, statitem, statvalue)
   return True
 
 def outputXml(root,newelement):
