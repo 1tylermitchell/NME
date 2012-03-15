@@ -17,7 +17,7 @@ For more information on the purpose and background of this project, please see t
 Dependencies
 =================
 
-The main script is called gdalogr_catalogue.py:  http://code.google.com/p/spatialguru/source/browse/trunk/nme/cat/gdalogr_catalogue.py
+The main script is called _gdalogr_catalogue.py:  http://code.google.com/p/spatialguru/source/browse/trunk/nme/cat/gdalogr_catalogue.py
 GDAL/OGR libraries (Python bindings): http://pypi.python.org/pypi/GDAL
 Python > 2.3 for itertools.tee function
 xmlgen.py in the same folder as the main script, or installed (manually) 
