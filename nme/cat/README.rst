@@ -11,20 +11,19 @@ The (default) results of a search are encoded into hierarchical XML and feed to 
 
 For more information on the purpose and background of this project, please see the discussion at my blog:
 
-    .. _A Case For Low-Level Metadata Collection: http://spatialguru.com/node/83
-    .. _XML to Describe and Catalogue Datasets: http://spatialguru.com/node/53
+.. _A Case For Low-Level Metadata Collection: http://spatialguru.com/node/83
+.. _XML to Describe and Catalogue Datasets: http://spatialguru.com/node/53
 
 Dependencies
 =================
 
-    The main script is called gdalogr_catalogue.py
-    GDAL/OGR libraries (Python bindings): http://pypi.python.org/pypi/GDAL
-    Python > 2.3 for itertools.tee function
-    xmlgen.py in the same folder as the main script, or installed (manually) 
+The main script is called gdalogr_catalogue.py:  http://code.google.com/p/spatialguru/source/browse/trunk/nme/cat/gdalogr_catalogue.py
+GDAL/OGR libraries (Python bindings): http://pypi.python.org/pypi/GDAL
+Python > 2.3 for itertools.tee function
+xmlgen.py in the same folder as the main script, or installed (manually) 
 
 Sample Output
 ==================
-
 
 Here are snippits of the possible output of the script. Two options are currently available, XML & SQL -- more to come (delimited text) and some are half-baked (SQL).
 XML
