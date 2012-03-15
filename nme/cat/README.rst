@@ -3,30 +3,32 @@ Purpose and Usage
 
 This script, available in my SVN code repository, serves to catalog all raster & vector datasources/layers found in a directory tree.
 
-Using a simple command line request, the script recursively scans all the files and folders for supported spatial data or image formats. The real power behind the script is the GDAL/OGR spatial data access library that supports dozens of vector and raster formats.
+Using a simple command line request, the script recursively scans all the files and folders for supported spatial data or image formats. The real power behind the script is the `GDAL/OGR <http://gdal.org>` spatial data access library that supports dozens of vector and raster formats.
 
-    Usage: python gdalogr_catalogue.py <search path> 
+  Usage: python gdalogr_catalogue.py <search path> 
 
 The (default) results of a search are encoded into hierarchical XML and feed to stdout.
 
 For more information on the purpose and background of this project, please see the discussion at my blog:
 
-.. _A Case For Low-Level Metadata Collection: http://spatialguru.com/node/83
-.. _XML to Describe and Catalogue Datasets: http://spatialguru.com/node/53
+`A Case For Low-Level Metadata Collection <http://spatialguru.com/node/83>`
+`XML to Describe and Catalogue Datasets <http://spatialguru.com/node/53>`
 
 Dependencies
 =================
 
-The main script is called _gdalogr_catalogue.py:  http://code.google.com/p/spatialguru/source/browse/trunk/nme/cat/gdalogr_catalogue.py
-GDAL/OGR libraries (Python bindings): http://pypi.python.org/pypi/GDAL
-Python > 2.3 for itertools.tee function
-xmlgen.py in the same folder as the main script, or installed (manually) 
+# The main script is called **gdalogr_catalogue.py**
+# GDAL/OGR libraries (Python bindings): http://pypi.python.org/pypi/GDAL
+# Python > 2.3 for itertools.tee function
+# **xmlgen.py** in the same folder as the main script, or installed (manually), also provided in this repo
 
 Sample Output
 ==================
 
 Here are snippits of the possible output of the script. Two options are currently available, XML & SQL -- more to come (delimited text) and some are half-baked (SQL).
+
 XML
+=====
 
 Until I get an XML schema doc put together, you have to refer this sample XML or a portion of it as displayed here:
 
