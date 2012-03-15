@@ -3,7 +3,7 @@ Purpose and Usage
 
 This script, available in my SVN code repository, serves to catalog all raster & vector datasources/layers found in a directory tree.
 
-Using a simple command line request, the script recursively scans all the files and folders for supported spatial data or image formats. The real power behind the script is the `GDAL/OGR <http://gdal.org>` spatial data access library that supports dozens of vector and raster formats.
+Using a simple command line request, the script recursively scans all the files and folders for supported spatial data or image formats. The real power behind the script is the `GDAL/OGR <http://gdal.org>`_ spatial data access library that supports dozens of vector and raster formats.
 
   Usage: python gdalogr_catalogue.py <search path> 
 
@@ -11,8 +11,8 @@ The (default) results of a search are encoded into hierarchical XML and feed to 
 
 For more information on the purpose and background of this project, please see the discussion at my blog:
 
-`A Case For Low-Level Metadata Collection <http://spatialguru.com/node/83>`
-`XML to Describe and Catalogue Datasets <http://spatialguru.com/node/53>`
+* `A Case For Low-Level Metadata Collection <http://spatialguru.com/node/83>`_
+* `XML to Describe and Catalogue Datasets <http://spatialguru.com/node/53>`_
 
 Dependencies
 =================
