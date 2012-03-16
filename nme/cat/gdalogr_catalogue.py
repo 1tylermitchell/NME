@@ -25,7 +25,7 @@ TODO
 - extent values to GML or basic WKT bbox
 # DONE - decide on checksum process for determining changes
 - decide on process -> datasource linking (timestamp?) for top level relations
-
+- output an overview map showing extents (e.g. mapscript?)
 
 '''
 try:
