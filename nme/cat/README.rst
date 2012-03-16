@@ -30,7 +30,7 @@ Here are snippits of the possible output of the script. Two options are currentl
 XML
 =====
 
-Until I get an XML schema doc put together, you have to refer this sample XML or a portion of it as displayed here:
+Until I get an XML schema doc put together, you have to refer this `sample XML <https://github.com/spatialguru/NME/blob/master/nme/cat/sample_output.xml>`_ or a portion of it as displayed here:
 
   <?xml version="1.0" encoding="utf-8"?>
   <DataCatalogue>
