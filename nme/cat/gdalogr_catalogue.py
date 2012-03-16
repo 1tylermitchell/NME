@@ -2,7 +2,7 @@
 
 # gdalogr_catalogue.py
 # Purpose: Catalog all raster & vector datasources/layers found in a directory tree
-# Usage: python gdalogr_catalogue.py <search path>
+# Usage: python gdalogr_catalogue.py [options] <search path>
 # Sends hierarchical XML to stdout
 # Requires GDAL/OGR libraries: http://pypi.python.org/pypi/GDAL
 # Requires Python > 2.3 for itertools.tee function.
