@@ -50,21 +50,6 @@ from xmlgen import XMLWriter
 #from mapscript import *
 #from time import time
 
-def Usage():
-    print 'Usage: gdalogr_catalogue.py directory [SQL]'
-    print
-    sys.exit(1)
-
-# Argument processing
-#if len(sys.argv) > 1:
-#  directory = sys.argv[1]
-#  if len(sys.argv) > 2:
-#    if sys.argv[2] == "SQL":
-#      printSql = True
-#  else: printSql = False
-#else:
-#  Usage()
-
 def startup():
   #directory = sys.argv[1]
   gdal.PushErrorHandler()
@@ -147,7 +132,10 @@ def appendXML(elementroot, subelement, subelstring=None):
 
 def writeXML(xmlroot):
   xmltree = ET.ElementTree(xmlroot)
-  xmltree.write(options.logfile)
+  if options.logfile:
+    xmltree.write(options.logfile)
+  else: 
+    print prettify(xmlroot)
 
 def skipfile(filepath, skiplist):
   skipstatus = None
@@ -251,7 +239,12 @@ def featureTypeName(inttype):
     elif (inttype == ogr.wkbLineString): ftype = 'LINE'
     elif (inttype == ogr.wkbPolygon): ftype = 'POLYGON'
     elif (inttype == 0): ftype = 'UNKNOWN'
+    elif (inttype == 100): ftype = 'NONE'
+    elif (inttype == -2147483645): ftype = '3D POLYGON'
+    elif (inttype == -2147483646): ftype = '3D LINESTRING'
+    elif (inttype == -2147483647): ftype = '3D POINT'
     else: print "-----Ftype conversion failure"
+    #print str(int(inttype)) + "---" + ftype
     return ftype
 
 def outputvector(resultsvector, counterraster, countervds, resultsFileStats,xmlroot):
@@ -313,7 +306,9 @@ def fileStats(filepath):
     user_full_name = userinfo[4]
   full_path = os.path.abspath(filepath)
   md5_key = (full_path, user_name, file_size, time_modified, time_created)
-  md5_digest = getMd5HexDigest(md5_key)
+#  md5_digest = getMd5HexDigest(md5_key)
+  md5_digest = getMd5hash(md5_key)
+
   resultsFileStats = {'fullPath': str(full_path), 'userId': str(user_id), 'groupId': str(group_id), 'fileSize': str(file_size), 'timeAccessed': str(time_accessed), 'timeModified': str(time_modified), 'timeCreated': str(time_created), 'fileType': file_type, 'userName': user_name, 'userFullName': user_full_name, 'uniqueDigest': md5_digest}
   return resultsFileStats
 
@@ -330,6 +325,12 @@ def outputXml(root,newelement):
 def getMd5HexDigest(encodeString):
   import md5
   m = md5.new()
+  m.update(str(encodeString))
+  return m.hexdigest()
+
+def getMd5hash(encodeString):
+  import hashlib
+  m = hashlib.md5()
   m.update(str(encodeString))
   return m.hexdigest()
 
@@ -399,6 +400,7 @@ class Mapping:
 if __name__ == '__main__':
   from optparse import OptionParser, OptionGroup
   parser = OptionParser()
+  parser.set_usage("Usage: %prog [options] directory")
   parser.add_option("-d","--dir", action="store", type="string", dest="directory", help="Top level folder to start scanning from")
   parser.add_option("-f","--file", action="store", type="string", dest="logfile", help="Output log file (not written to stdout)" )
   group = OptionGroup(parser, "Hack Options", "May not function without advanced knowledge")
@@ -406,6 +408,13 @@ if __name__ == '__main__':
   group.add_option("-p","--pretty", action="store_true", dest="pretty", help="Print easy to read XML to stdout")
   parser.add_option_group(group)
   (options, args) = parser.parse_args()
+
+  # Argument processing
+  if len(sys.argv) == 2:
+    options.directory = sys.argv[1]
+  if len(sys.argv) < 2:
+    parser.print_help()
+    sys.exit(1)
 
   from xml.etree.ElementTree import Element, SubElement
   import xml.etree.ElementTree as ET
