@@ -82,3 +82,9 @@ Delimited Text
 ====================
 
 The earlier versions of my vector cataloguing script (ogr_catalog.py) and Matt Perry's raster version (gdal_catalog.py) produced pipe delimited files suitable for importing into a database. This meant having at least four different files to describe what is encoded in the short XML snippit above. I hope to have delimited output support added as an option in future versions. 
+
+Other Stuff..
+==================
+One other goal is to enable the output of an overview map of the contents.  Some tests are being done using MapServer MapScript, but not really included here yet.
+
+Some xsl and css examples are provided here to help you visualise the XML output easily in a web page.
