@@ -37,7 +37,7 @@ except ImportError:
     import osr
     import ogr
 
-import os, sys
+import os, sys, platform
 import itertools
 import getopt
 from string import strip
@@ -84,9 +84,9 @@ def startup():
           resultsvds,resultsFileStats = processvds(vector,countervds,currentdir)
           xmlvector = outputvector(resultsvds,counterraster,countervds,resultsFileStats, xmlroot)
     for eachfile in allfiles:
-      currentfile = "/".join([startdir, eachfile])
+       currentfile = os.path.join(startdir,eachfile)
       #print "Current file" + currentfile
-      if (not skipfile(currentfile,skiplist) and tryopends(currentfile)):
+       if (not skipfile(currentfile,skiplist) and tryopends(currentfile)):
         raster, vector = tryopends(currentfile)
         if raster:
           counterraster += 1
@@ -116,6 +116,7 @@ def processStats(walkerlist, skiplist, startpath, xmlroot):
   appendXML(xmlcatalog, "DirCount", str(len(dirlist)))
   appendXML(xmlcatalog, "FileCount", str(len(filelist)))
   appendXML(xmlcatalog, "Timestamp", asctime())
+  appendXML(xmlcatalog, "OperatingSystem", platform.system())
   
   if options.printSql: 
     processValues = {'SearchPath':startpath,'LaunchPath':os.getcwd(),'UserHome':os.getenv("HOME"),'IgnoredString':" ".join(map(str, skiplist)),'DirCount':int(len(dirlist)),'FileCount':int(len(filelist)),'Timestamp':asctime()}
@@ -211,6 +212,8 @@ def processvds(vector, countervds,currentpath):
     layerfcount = str(layer.GetFeatureCount())
     layerextentraw = strip(str(layer.GetExtent()),"()")
     layerftype = featureTypeName(layer.GetLayerDefn().GetGeomType())
+    if layerftype == 'NONE':
+      layerextentraw = 0
 
     # the following throws all the attributes into dictionaries of attributes, 
     # some of which are other dictionaries
@@ -305,6 +308,9 @@ def fileStats(filepath):
     user_name = userinfo[0]
     user_full_name = userinfo[4]
   full_path = os.path.abspath(filepath)
+  #full_path.replace('//','/')
+  #if platform.system() == 'Windows':
+  #  full_path.replace('/','\\')
   md5_key = (full_path, user_name, file_size, time_modified, time_created)
 #  md5_digest = getMd5HexDigest(md5_key)
   md5_digest = getMd5hash(md5_key)
