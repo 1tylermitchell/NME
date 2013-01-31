@@ -7,3 +7,4 @@
     <GeometryField encoding="PointFromColumns" x="x" y="y"/>
     </OGRVRTLayer>
 </OGRVRTDataSource>
+
