@@ -71,10 +71,11 @@ def write_output(outfile,outstr):
 def close_output(outfile):
   outfile.close()
 
-def print_summary(input,output,fcnt,rcnt,pcnt):
-  print "Done Processing: %s" % (input)
-  print "Results Saved In: %s" % (output)
-  print "Summary: %s features, %s rings, %s points" % (fcnt,rcnt,pcnt)
+def print_summary(input,output,fcnt,rcnt,pcnt,lay_geom):
+  print """
+  Done Processing (%s): %s
+  Results Saved In: %s
+  Summary: %s features, %s rings, %s points """ % (lay_geom,input,output,fcnt,rcnt,pcnt)
 
 def check_ftype(lay):
   lay_type = lay.GetGeomType()
@@ -115,15 +116,16 @@ if __name__ == '__main__':
     for feat in lay:
       fcnt+=1
       geom = feat.GetGeometryRef()
-      if check_ftype(lay) == 'LINESTRING':
+      lay_geom = check_ftype(lay)
+      if lay_geom == 'LINESTRING':
         pcnt = process_lines(geom,pcnt)
-      elif check_ftype(lay) == 'POLYGON':
+      elif lay_geom == 'POLYGON':
         rcnt,pcnt = process_polygons(geom,rcnt,pcnt)
       else:
         print "Unexpected Input Geometry Type"
         print "Script expects Linestring or Polygon data"
 
-    print_summary(input,output,fcnt,rcnt,pcnt)
+    print_summary(input,output,fcnt,rcnt,pcnt,lay_geom)
   else:
     print_usage()
     
