@@ -24,7 +24,7 @@ def startup(argv):
   input = argv[1]
   output = argv[2]
   outfile = initialise_output(output)
-  zfield = check_zfield(argv)
+  zfield = check_zfield(argv).upper()
   instatus = check_input(input)
   if instatus == True:
     ds = ogr.Open(input)
@@ -79,11 +79,12 @@ def write_output(outfile,outstr):
 def close_output(outfile):
   outfile.close()
 
-def print_summary(input,output,fcnt,rcnt,pcnt,lay_geom):
+def print_summary(input,output,zfield,fcnt,rcnt,pcnt,lay_geom):
   print """
   Done Processing (%s): %s
   Results Saved In: %s
-  Summary: %s features, %s rings, %s points """ % (lay_geom,input,output,fcnt,rcnt,pcnt)
+  Z Value Field: %s
+  Summary: %s features, %s rings, %s points """ % (lay_geom,input,output,zfield,fcnt,rcnt,pcnt)
 
 def check_ftype(lay):
   lay_type = lay.GetGeomType()
@@ -105,7 +106,7 @@ def process_lines(geom,pcnt,zfield):
     lon, lat, z = geom.GetPoint(p)
     zval = get_zval(feat,zfield)
     if zval != None:
-      z = zval
+      z = zval.strip()
     outstr = "%s,%s,%s\n" % (lon,lat,z)
     write_output(outfile,outstr) 
   return pcnt
@@ -119,14 +120,14 @@ def process_polygons(geom,rcnt,pcnt,zfield):
       lon, lat, z = ring.GetPoint(p)
       zval = get_zval(feat,zfield)
       if zval != None:
-        z = zval
+        z = zval.strip()
       outstr = "%s,%s,%s\n" % (lon,lat,z)
       write_output(outfile,outstr)
   return rcnt,pcnt
 
 def get_zval(feat,zfield):
-  if zfield in feat.keys():
-    zfield_val = feat.GetFieldAsString(zfield)
+  if zfield.upper() in str(feat.keys()).upper():
+    zfield_val = feat.GetFieldAsString(zfield.upper())
   else:
     zfield_val = None
   return zfield_val
@@ -146,7 +147,7 @@ if __name__ == '__main__':
         print "Unexpected Input Geometry Type"
         print "Script expects Linestring or Polygon data"
 
-    print_summary(input,output,fcnt,rcnt,pcnt,lay_geom)
+    print_summary(input,output,zfield,fcnt,rcnt,pcnt,lay_geom)
   else:
     print_usage()
     
