@@ -16,3 +16,9 @@ At this stage the `nme/cat/gdalogr_catalogue.py` is the only other script in thi
 It's used to recursively catalogue a tree/folder/directory and find all the GDAL/OGR
 readable datasets, layers, and bands in each folder.  The results are written out
 to XML.
+
+Contact
+========
+For more information follow and connect with me on http://twitter.com/spatialguru or 
+see more on my blog http://spatialguru.com.  I also publish books on related subjects
+at http://locatepress.com (aspiring writers welcome).
