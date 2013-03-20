@@ -1,6 +1,6 @@
 <OGRVRTDataSource>
     <OGRVRTLayer name="output">
-        <SrcDataSource>output.csv</SrcDataSource>
+        <SrcDataSource>/FULL/PATH/TO.../output.csv</SrcDataSource>
     <SrcLayer>output</SrcLayer>
     <GeometryType>wkbPoint</GeometryType>
         <LayerSRS>WGS84</LayerSRS>
