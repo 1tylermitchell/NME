@@ -1,7 +1,13 @@
 Spatialguru Scripts
 ======================
 
-* ogr_explode.py - blast apart those nasty polygons and linestrings into their atomic (point) pieces!  
+* **ogr_dumptopo.py** - convert linestrings into nodes and edges CSV lists.  Sample output from natural earth 
+   admin boundary lines included.  Nodes output has x,y,z data and an ID.  Edges has ID, node_to and node_from that
+   point to node ID.
+
+   > Usage: python ogr_dumptopo.py ne_boundary.gml nodes.csv edges.csv
+
+* **ogr_explode.py** - blast apart those nasty polygons and linestrings into their atomic (point) pieces!  
    The script outputs a CSV file with x,y,z structure for each node in all the input features.
    Option takes 3rd dimension from a named field in the input file.
 
