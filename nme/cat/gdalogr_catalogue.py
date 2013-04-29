@@ -209,6 +209,7 @@ def processvds(vector, countervds,currentpath):
   for layernum in range(vdslayercount): #process all layers
     layer = vector.GetLayer(layernum)
     layername = layer.GetName()
+    spatialref = layer.GetSpatialRef()
     layerfcount = str(layer.GetFeatureCount())
     layerextentraw = strip(str(layer.GetExtent()),"()")
     layerftype = featureTypeName(layer.GetLayerDefn().GetGeomType())
@@ -228,7 +229,7 @@ def processvds(vector, countervds,currentpath):
     if options.printSql: print sqlOutput('layer',resultseachlayer)
     #if (layerftype <> 'UNKNOWN'):
     #    Mapping(vector,layerextentraw,layername,layerftype) # mapping test
-  resultsvds = { 'datasourceId': str(countervds), 'name': vdsname, 'format': vdsformat, 'layercount': str(vdslayercount) }
+  resultsvds = { 'datasourceId': str(countervds), 'name': vdsname, 'format': vdsformat, 'layercount': str(vdslayercount), 'projection': str(spatialref)}
   sqlstringvds = "INSERT INTO datasource %s VALUES %s;" % (('datasourceId','name','format','layercount'), (countervds, vdsname, vdsformat, int(vdslayercount)))
   resultsvector = { 'resultsvds': resultsvds, 'resultslayers': resultslayers } 
   if options.printSql: print sqlOutput('dataset',resultsvds)
@@ -292,7 +293,20 @@ def openZip(currentfile):
   import zipfiles
   # extract files and catalogue them
 
+def convertSize(size):
+  import math
+  # convert file sizes to human-readable values with appropriate units
+  size_name = ("B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB")
+  i = int(math.floor(math.log(size,1024)))
+  p = math.pow(1024,i)
+  s = round(size/p,2)
+  if (s > 0):
+      return '%s %s' % (s,size_name[i])
+  else:
+      return '0B'
+
 def fileStats(filepath):
+  from time  import gmtime, strftime
   mode, ino, dev, nlink, user_id, group_id, file_size, time_accessed, time_modified, time_created = os.stat(filepath)
   if os.path.isfile(filepath):
     file_type = "File"
@@ -315,7 +329,7 @@ def fileStats(filepath):
 #  md5_digest = getMd5HexDigest(md5_key)
   md5_digest = getMd5hash(md5_key)
 
-  resultsFileStats = {'fullPath': str(full_path), 'userId': str(user_id), 'groupId': str(group_id), 'fileSize': str(file_size), 'timeAccessed': str(time_accessed), 'timeModified': str(time_modified), 'timeCreated': str(time_created), 'fileType': file_type, 'userName': user_name, 'userFullName': user_full_name, 'uniqueDigest': md5_digest}
+  resultsFileStats = {'fullPath': str(full_path), 'userId': str(user_id), 'groupId': str(group_id), 'fileSize': convertSize(file_size), 'timeAccessed': strftime('%a %d %b %Y %H:%M %Z',gmtime(time_accessed)), 'timeModified': strftime('%a %d %b %Y %H:%M %Z',gmtime(time_modified)), 'timeCreated': strftime('%a %d %b %Y %H:%M %Z',gmtime(time_created)), 'fileType': file_type, 'userName': user_name, 'userFullName': user_full_name, 'uniqueDigest': md5_digest}
   return resultsFileStats
 
 def outputFileStats(resultsFileStats, xmlroot):
