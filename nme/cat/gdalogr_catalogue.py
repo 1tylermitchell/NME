@@ -176,10 +176,10 @@ def processraster(raster, counterraster, currentpath):
     band = raster.GetRasterBand(bandnum+1)
     min, max = band.ComputeRasterMinMax()
     overviews = band.GetOverviewCount()
-    resultseachband = {'bandId': str(bandnum+1), 'min': str(min),'max': str(max), 'overviews': str(overviews)}
-    resultseachbandShort = {'bandId': bandnum+1, 'min': min,'max': max, 'overviews': str(overviews)}
-    resultsbands[str(bandnum+1)] = resultseachband
-    if options.printSql: print sqlOutput('band',resultseachbandShort)
+    resultsearchband = {'bandId': str(bandnum+1), 'min': str(min),'max': str(max), 'overviews': str(overviews)}
+    resultsearchbandShort = {'bandId': bandnum+1, 'min': min,'max': max, 'overviews': str(overviews)}
+    resultsbands[str(bandnum+1)] = resultsearchband
+    if options.printSql: print sqlOutput('band',resultsearchbandShort)
   resultsraster = { 'bands': resultsbands, 'rasterId': str(counterraster), 'name': rastername, 'bandcount': str(bandcount), 'geotrans': str(geotrans), 'driver': str(driver), 'rasterX': str(rasterx), 'rasterY': str(rastery), 'projection': wkt}
   resultsrasterShort =  {'rasterId':counterraster, 'name': rastername, 'bandcount': bandcount, 'geotrans': str(geotrans), 'driver': driver, 'rasterX': rasterx, 'rasterY': rastery, 'projection': wkt}
   if options.printSql: print sqlOutput('raster',resultsrasterShort)
@@ -218,18 +218,18 @@ def processvds(vector, countervds,currentpath):
 
     # the following throws all the attributes into dictionaries of attributes, 
     # some of which are other dictionaries
-    # resultseachlayer = 1 layer attributes
+    # resultsearchlayer = 1 layer attributes
     # resultslayers = dict. of all layers and their attributes
     # resultsvds = datasource attributes
     # resultsvector = dict of datasource attributes, plus a dict of all layers
     # Note all get saved as strings, which isn't what you'd want for SQL output
-    resultseachlayer = {'layerId': str(layernum+1), 'name': layername, 'featuretype': str(layerftype), 'featurecount': str(layerfcount), 'extent': layerextentraw}
-    resultslayers[str(layernum+1)] = resultseachlayer
+    resultsearchlayer = {'layerId': str(layernum+1), 'name': layername, 'featuretype': str(layerftype), 'featurecount': str(layerfcount), 'extent': layerextentraw, 'projection': str(spatialref)}
+    resultslayers[str(layernum+1)] = resultsearchlayer
     sqlstringvlay = "INSERT INTO layer %s VALUES %s;" % (('layerId','datasourceId','name','featurecount','extent'), (layernum+1,countervds,layername,int(layerfcount),layerextentraw))
-    if options.printSql: print sqlOutput('layer',resultseachlayer)
+    if options.printSql: print sqlOutput('layer',resultsearchlayer)
     #if (layerftype <> 'UNKNOWN'):
     #    Mapping(vector,layerextentraw,layername,layerftype) # mapping test
-  resultsvds = { 'datasourceId': str(countervds), 'name': vdsname, 'format': vdsformat, 'layercount': str(vdslayercount), 'projection': str(spatialref)}
+  resultsvds = { 'datasourceId': str(countervds), 'name': vdsname, 'format': vdsformat, 'layercount': str(vdslayercount)}
   sqlstringvds = "INSERT INTO datasource %s VALUES %s;" % (('datasourceId','name','format','layercount'), (countervds, vdsname, vdsformat, int(vdslayercount)))
   resultsvector = { 'resultsvds': resultsvds, 'resultslayers': resultslayers } 
   if options.printSql: print sqlOutput('dataset',resultsvds)
