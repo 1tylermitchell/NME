@@ -36,7 +36,8 @@
              <div class="element">
 			 Format: <xsl:value-of select="driver"/><br />
 			 Band Count: <xsl:value-of select="bandcount"/><br />
-             Dimensions (X Y): <xsl:value-of select="rasterX"/> x <xsl:value-of select="rasterY"/><br />
+             		 Dimensions (X Y): <xsl:value-of select="rasterX"/> x <xsl:value-of select="rasterY"/><br />
+        		 Projection: <xsl:value-of select="projection"/><br />
 
 			  <xsl:for-each select="RasterBand">
 				<div class="layer">
@@ -98,13 +99,13 @@
 					Bounding Box Coordinates: <xsl:value-of select="extent"/><br />
 				 </div>
 				 <xsl:choose>
-					<xsl:when test="spatial_reference='Unknown'">
+					<xsl:when test="projection='Unknown'">
 						<div class="error">
-						Spatial Reference: <xsl:value-of select="spatial_reference"/><br />
+						Spatial Reference: <xsl:value-of select="projection"/><br />
 						</div>
 					</xsl:when>
 					<xsl:otherwise>
-						Spatial Reference: <xsl:value-of select="spatial_reference"/><br />
+						Spatial Reference: <xsl:value-of select="projection"/><br />
 					</xsl:otherwise>
 				 </xsl:choose>
 					
