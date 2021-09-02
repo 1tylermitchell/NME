@@ -13,8 +13,8 @@ Spatialguru Scripts
 
  > Usage: python ogr_explode.py input.shp output.csv [zfield name]
 
-NME
-===
+NME 
+====
 
 **network mapping engine - catalogue, project management and more**
 
